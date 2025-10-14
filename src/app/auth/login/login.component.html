@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" th:href="@{/css/Login.css}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="img">
+      <img class="doctorimg" src="/assets/public/img/loginImage.jpg" alt="">
+    </div>
+    <div class="login">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+          <input class="input" id="username" type="text" formControlName="username" placeholder="Username" />
+          <span *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="span">
+            Tên đăng nhập không được để trống!
+          </span>
+        </div>
+        <div>
+          <input class="input" id="password" type="password" formControlName="password" placeholder="Password" />
+          <span *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="span">
+            Mật khẩu không được để trống!
+          </span>
+        </div>
+        <button class="button" type="submit">
+          {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
+        </button>
+        <div>
+          <Span>Bạn chưa có tài khoản?<a [routerLink]="['/register/user']" class="nav-link"> Đăng kí
+              ngay</a></Span>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
