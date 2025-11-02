@@ -1,0 +1,28 @@
+.conduct-form-list {
+  width: 80%;
+  margin: auto;
+}
+
+.table-section {
+  background-color: #f2f6fa;
+}
+
+.semester-title {
+  color: #e53935;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #c19a4a;
+}
+
+.action-cell {
+  vertical-align: middle;
+}
+
+.btn {
+  padding: 4px 12px;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,63 @@
+<nav class="sidebar">
+  <div class="logo">
+    <h2>CoachPro</h2>
+  </div>
+
+  <ul class="nav-links">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a [routerLink]="'/student'">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a [routerLink]="'/student/home'">
+        <i class="fa-solid fa-users"></i>
+        <span>Squad</span>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a [routerLink]="'/student/messages'">
+        <i class="fa-solid fa-comments"></i>
+        <span>Messenger</span>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a [routerLink]="'/manager/statistics'">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>Statistic</span>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a [routerLink]="'/manager/calendar'">
+        <i class="fa-solid fa-calendar"></i>
+        <span>Calendar</span>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a [routerLink]="'/manager/finance'">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Finance</span>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a [routerLink]="'/manager/transfers'">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <span>Transfers</span>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a [routerLink]="'/manager/academy'">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Youth Academy</span>
+      </a>
+    </li>
+  </ul>
+</nav>

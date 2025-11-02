@@ -1,0 +1,112 @@
+<div class="container mt-4">
+  <h2 class="mb-4">
+    {{ 
+      mode === 'create' ? 'Tạo phiếu rèn luyện' :
+      mode === 'edit' ? 'Chỉnh sửa phiếu rèn luyện' :
+      'Xem phiếu rèn luyện'
+    }}
+  </h2>
+
+  <!-- Chọn học kỳ -->
+  <div class="mb-3">
+    <label class="form-label fw-bold">Học kỳ</label>
+    <select class="form-select" [(ngModel)]="form.semester" name="semester" [disabled]="!isEditable()">
+      <option [ngValue]="null">-- Chọn học kỳ --</option>
+      <option *ngFor="let s of semesters" [ngValue]="s">
+        {{ s.semesterName }}
+      </option>
+    </select>
+  </div>
+
+  <table class="table table-bordered align-middle">
+    <thead class="table-primary text-center">
+      <tr>
+        <th style="width: 35%">Nội dung và tiêu chí đánh giá</th>
+        <th style="width: 5%">Điểm tối đa</th>
+        <th style="width: 10%">Sinh viên tự đánh giá</th>
+        <th style="width: 20%">Ghi chú</th>
+        <th style="width: 20%">Minh chứng</th>
+      </tr>
+      <tr class="table-info fw-bold">
+        <td>Tổng điểm tự đánh giá</td>
+        <td></td>
+        <td class="text-center text-danger fw-bold">
+          {{ calculateOverallTotal() }}
+        </td>
+        <td colspan="2"></td>
+      </tr>
+    </thead>
+    <tbody *ngFor="let type of criteriaTypeList; let i = index">
+      <tr class="table-info fw-bold">
+        <td colspan="5">
+          {{ i + 1 }}. {{ type.criteriaTypeName }} (Tối đa {{ type.maxScore }} điểm)
+        </td>
+      </tr>
+
+      <tr *ngFor="let c of type.criteriaEntityList; let j = index">
+        <td>
+          {{ i + 1 }}.{{ j + 1 }} {{ c.criteriaName }}
+          <div class="text-muted small" *ngIf="c.criteriaDetail">
+            {{ c.criteriaDetail }}
+          </div>
+        </td>
+
+        <td class="text-center">{{ c.maxScore }}</td>
+
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="detailMap[c.criteriaId].selfScore"
+            name="score{{ c.criteriaId }}" [max]="c.maxScore ?? 0" min="0" [readonly]="!isEditable()" />
+        </td>
+
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="detailMap[c.criteriaId].comment"
+            name="comment{{ c.criteriaId }}" placeholder="Nhập ghi chú" [readonly]="!isEditable()" />
+        </td>
+
+        <td class="text-center">
+          <input type="file" id="file{{ c.criteriaId }}" (change)="onFileSelected($event, detailMap[c.criteriaId])"
+            hidden [disabled]="!isEditable()" />
+          <label [for]="'file' + c.criteriaId" class="upload-icon" [class.disabled-label]="!isEditable()">
+            <i style="font-size: 20px; color: #95bacf" class="fa-solid fa-arrow-up-from-bracket"></i>
+          </label>
+
+          <div class="mt-2 position-relative d-inline-block">
+            <!-- Nếu là ảnh -->
+            <img *ngIf="detailMap[c.criteriaId]?.previewUrl" [src]="detailMap[c.criteriaId].previewUrl"
+              class="img-thumbnail preview-image" (click)="openImagePreview(detailMap[c.criteriaId].previewUrl!)" />
+            <!-- Nếu là PDF / Word -->
+            <div *ngIf="!detailMap[c.criteriaId]?.previewUrl && detailMap[c.criteriaId]?.fileName"
+              class="file-display border p-2 rounded bg-light text-start small">
+              <i class="fa-solid fa-file" style="color: #6c757d"></i>
+              <a [href]="detailMap[c.criteriaId].file" target="_blank" class="text-decoration-none text-dark">
+                {{ detailMap[c.criteriaId].fileName }}
+              </a>
+            </div>
+
+            <!-- Nút xóa -->
+            <button *ngIf="detailMap[c.criteriaId]?.file" type="button"
+              class="btn-close position-absolute top-0 start-100 translate-middle bg-danger rounded-circle"
+              style="transform: translate(-30%, 30%)" (click)="removeImage(detailMap[c.criteriaId])"
+              [disabled]="!isEditable()"></button>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Overlay xem ảnh chi tiết -->
+  <div *ngIf="selectedImageUrl" class="image-overlay" (click)="closeImagePreview()">
+    <div class="image-container" (click)="$event.stopPropagation()">
+      <button class="btn btn-light btn-close-overlay" (click)="closeImagePreview()">✕</button>
+      <img [src]="selectedImageUrl" class="img-fluid" alt="Preview" />
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary px-4" (click)="submit()" [disabled]="!isEditable() || loading">
+      Gửi phiếu rèn luyện
+    </button>
+
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DashboardService } from '../../../service/admin/dashboard_service';
+import { DashboardService } from '../../../service/dashboard_service';
 @Component({
   selector: 'app-admin-dashboard',
   imports: [],

@@ -1,0 +1,78 @@
+/* --- Sidebar container --- */
+.sidebar {
+  width: 230px;
+  background: linear-gradient(180deg, #cfe0eb, #95bacf);
+  padding: 25px 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Logo --- */
+.logo {
+  font-weight: 700;
+  font-size: 22px;
+  color: #2d719a;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+}
+
+/* --- Navigation list --- */
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- Each link --- */
+.nav-links li {
+  margin-bottom: 8px;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #2d719a;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: all 0.3s ease;
+}
+
+/* --- Icon inside link --- */
+.nav-links i {
+  width: 20px;
+  text-align: center;
+  font-size: 17px;
+}
+
+/* --- Hover effect --- */
+.nav-links a:hover {
+  background-color: rgba(45, 113, 154, 0.15);
+  transform: translateX(4px);
+  font-weight: 600;
+}
+
+/* --- Active link (routerLinkActive="active") --- */
+.nav-links li.active a {
+  background-color: #2d719a;
+  color: #ffffff;
+  font-weight: 600;
+  /* box-shadow: inset 3px 0 0 #ffffff, 0 2px 6px rgba(0, 0, 0, 0.15); */
+  transform: scale(1.03);
+}
+
+/* Icon màu trắng khi active */
+.nav-links li.active i {
+  color: #ffffff;
+}
+
+/* Làm mượt khi chuyển giữa các route */
+.nav-links a,
+.nav-links li.active a {
+  transition: all 0.25s ease-in-out;
+}

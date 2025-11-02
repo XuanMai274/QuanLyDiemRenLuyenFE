@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 import { AdminDashboardComponent } from './page/admin/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { StudentDashboardComponent } from './page/student/student-dashboard/student-dashboard.component';
+import { ManagerComponent } from './layout/manager/manager.component';
+import { StudentComponent } from './layout/student/student.component';
+import { ConductFormComponent } from './page/student/conduct-form-component/conduct-form-component.component';
+import { ListConductFormComponent } from './page/student/list-conduct-form-component/list-conduct-form-component.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -12,18 +16,32 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'manager', // url với đường dẫn admin sẽ áp dụng layout admin
-        component: AdminDashboardComponent,
-        children: [
 
+        path: 'manager', // url với đường dẫn admin sẽ áp dụng layout admin
+        component: ManagerComponent,
+        children: [
+            {
+                path: 'home', component: AdminDashboardComponent
+            }
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['MANAGER'] }
     },
     {
         path: 'student', // url với đường dẫn admin sẽ áp dụng layout admin
-        component: StudentDashboardComponent,
+        component: StudentComponent,
         children: [
 
+            {
+                path: 'home', component: StudentDashboardComponent
+            },
+            {
+                path: 'ConductForm/create', component: ConductFormComponent
+            },
+            {
+                path: 'ConductForm/All', component: ListConductFormComponent
+            }, {
+                path: 'ConductForm/:id', component: ConductFormComponent
+            }
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['STUDENT', 'CLASS_MONITOR'] }
     },

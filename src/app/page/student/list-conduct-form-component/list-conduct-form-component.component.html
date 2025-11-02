@@ -1,0 +1,68 @@
+<table class="table table-bordered text-center align-middle">
+  <thead class="table-primary">
+    <tr>
+      <th>Tổng điểm</th>
+      <th>Xếp loại</th>
+      <th>Trạng Thái/
+      <th>
+      <th>Ghi chú</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody *ngIf="conductForms && conductForms.length > 0; else noData">
+    <ng-container *ngFor="let form of conductForms; let i = index">
+      <!-- Tiêu đề học kỳ -->
+      <tr class="table-secondary fw-bold">
+        <td colspan="6" class="text-start ps-3">
+          {{ form.semester?.semesterName }} ({{ form.semester?.year }})
+        </td>
+      </tr>
+
+      <!-- Dòng điểm rèn luyện -->
+      <tr>
+        <td>{{ form.totalStudentScore | number: '1.0-2' }}</td>
+        <td>{{ Grade(form.staffScore ?? 0) }}</td>
+        <td>{{form.status}}</td>
+        <td></td>
+        <td>
+          <button class="btn" [ngClass]="getButtonClass(form)">
+            {{ getButtonLabel(form) }}
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+
+  <ng-template #noData>
+    <tr>
+      <td colspan="6" class="text-center text-muted">Không có dữ liệu</td>
+    </tr>
+  </ng-template>
+</table>
+
+<!-- <div class="conduct-form-list">
+  <table class="table table-bordered text-center">
+    <tbody>
+      <ng-container *ngFor="let form of conductForms">
+        <tr class="table-section">
+          <td colspan="3" class="semester-title">
+            {{ form.semester?.semesterName }} ({{ form.semester?.year }})
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label">Điểm rèn luyện</td>
+          <td>{{ form.staffScore }}</td>
+           <td></td>
+          <td class="action-cell">
+            <button class="btn" [ngClass]="getButtonClass(form)">
+              {{ getButtonLabel(form) }}
+            </button>
+          </td>
+        </tr>
+        
+      </ng-container>
+    </tbody>
+  </table>
+</div> -->

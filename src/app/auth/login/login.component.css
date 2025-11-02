@@ -1,59 +1,153 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9; /* Màu nền nhạt */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Chiều cao toàn màn hình */
-    margin: 0;
-}
-.container{
-    width: 750px;
-    height: 500px;
-    justify-content: center;
-    text-align: center;
-    display: flex;
-    box-shadow: 10px 10px 5px rgb(211, 210, 210);
-    border-radius: 20px;
-    /* border: 1px black dashed;  */
-}
-.img{
-    width: 50%;
-}
-.doctorimg{
-    width:375px;
-    height: 100%; 
-    border-radius: 20px 0px 0px 20px;
-    object-fit: cover;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Ẩn thanh scroll */
+  font-family: 'Arial', sans-serif;
 }
 
-.login{
-    width:50%;
-    justify-content: center;
-    text-align: center;
-    background-color:#eaecee;
-    border-radius: 0px 20px 20px 0px;
+/* Toàn màn hình */
+.login-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
-.input{
-    width: 300px;
-    height: 40px;
-    border-radius:20px;
-    padding-left: 10px;
-    margin-top: 20px;
-    outline: none;
-    border: 1px dashed #abb2b9;
-    padding: 20px;
+
+/* Lớp phủ nền */
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(149, 186, 207, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* chặn tràn */
 }
-.button{
-    height: 40px;
-    border-radius: 15px;
-    border: 0px;
-    margin-top: 30px;
-    background-color: #98b4bf;
-    padding: 10px 20px 10px 20px;
+
+/* Hộp login chia làm 2 nửa */
+.login-box {
+  background: url("/assets/public/img/BgLogin.jpg") no-repeat center center/cover;
+  width: 900px;
+  height: 550px;
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 0.8s ease;
 }
-.span{
-    color: #7b7b7b;
-    margin-top: 20px;
-    display: block;
+
+/* Nửa trái chứa nội dung form */
+.login-content {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+/* Nửa phải */
+.login-box::after {
+  content: "";
+  width: 50%;
+  background: transparent;
+  display: block;
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tiêu đề */
+.login-content h2 {
+  color: #4a6f89;
+  font-size: 30px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  margin-left: 30px;
+}
+
+/* Form Group */
+.form-group {
+  width: 100%;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column; /* giúp input và lỗi xếp dọc */
+}
+
+
+/* Input */
+.input {
+  width: 120%; 
+  padding: 15px 18px;
+  border: 1.5px solid #95bacf;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #4a6f89;
+  box-shadow: 0 0 6px rgba(74, 111, 137, 0.3);
+}
+/* Thông báo lỗi */
+.error {
+  color: #d9534f;
+  font-size: 13px;
+  margin-top: 6px; /* tạo khoảng cách nhẹ với input */
+  line-height: 1.4;
+}
+/* Hàng chứa quên mật khẩu + nút đăng nhập */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 110%; /* khớp với chiều dài input */
+  margin-top: 10px;
+}
+
+.actions .forgot-password {
+  flex: 1; /* giúp tách nút ra xa */
+}
+
+.actions .forgot-password a {
+  color: #4a6f89;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.actions .forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* Nút login */
+.actions .button {
+  background-color: #95bacf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+
+.actions .button:hover {
+  background-color: #6c9ab8;
 }
