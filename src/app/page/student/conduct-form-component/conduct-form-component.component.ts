@@ -3,14 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
-
 import { ConductFormDTO } from '../../../models/conductForm.model';
 import { ConductFormService } from '../../../service/conductFormService';
 import { CriteriaService } from '../../../service/criteriaService';
 import { CriteriaTypeDTO } from '../../../models/criteriaType.model';
 import { CriteriaTypeService } from '../../../service/criteriaTypeService';
 import { ConductFormDetailDTO } from '../../../models/conductFormDetail.model';
-
+import { SemesterService } from '../../../service/semesterService';
+import { SemesterDTO } from '../../../models/semester.model';
 @Component({
   selector: 'app-conduct-form-component',
   standalone: true,
@@ -27,12 +27,8 @@ export class ConductFormComponent implements OnInit {
     staffScore: 0,
     status: 'PENDING'
   };
-
-  semesters = [
-    { semesterId: 1, semesterName: 'Học kỳ I 2025-2026' },
-    { semesterId: 2, semesterName: 'Học kỳ II 2025-2026' },
-    { semesterId: 3, semesterName: 'Học kỳ I 2026-2027' }
-  ];
+  semesterId!: number;
+  semesters: SemesterDTO[] = [];
 
   selectedImageUrl: string | null = null;
   loading = false;
@@ -45,10 +41,12 @@ export class ConductFormComponent implements OnInit {
     private route: ActivatedRoute,
     private criteriaService: CriteriaService,
     private conductFormService: ConductFormService,
-    private criteriaTypeService: CriteriaTypeService
+    private criteriaTypeService: CriteriaTypeService,
+    private semesterService: SemesterService
   ) { }
 
   ngOnInit(): void {
+    this.findAllSemesters()
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.mode = 'edit';
@@ -57,8 +55,40 @@ export class ConductFormComponent implements OnInit {
       this.mode = 'create';
       this.loadCriteria();
     }
-  }
+    // Lấy giá trị semesterId từ URL
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('semesterId');
+      if (id) {
+        this.semesterId = +id; // chuyển sang number
+        console.log('Semester ID nhận được:', this.semesterId);
 
+        // Nếu danh sách học kỳ đã load thì gán luôn
+        this.selectSemesterIfLoaded();
+
+        // Hoặc nếu load từ API => gọi hàm loadSemesters()
+      }
+    });
+  }
+  // viết hàm lấy lên tất cả học kì từ cơ sở dữ liệu
+  findAllSemesters() {
+    this.semesterService.getAllSemesters().subscribe({
+      next: (data) => {
+        this.semesters = data;
+        console.log('Danh sách học kỳ:', data);
+        // Khi danh sách đã tải xong, kiểm tra xem URL có semesterId không, nếu có thì chọn học kỳ tương ứng
+        if (this.semesterId) {
+          this.selectSemesterIfLoaded();
+        }
+      },
+      error: (err) => console.error('Lỗi khi tải học kỳ', err)
+    });
+  }
+  selectSemesterIfLoaded() {
+    const selected = this.semesters.find(s => s.semesterId === this.semesterId);
+    if (selected) {
+      this.form.semester = selected;
+    }
+  }
   isEditable(): boolean {
     // Chỉ cho phép sửa khi status là PENDING và mode là create hoặc edit
     return (this.mode === 'create' || this.mode === 'edit')
@@ -72,7 +102,9 @@ export class ConductFormComponent implements OnInit {
       next: (data) => {
         console.log('Chi tiết phiếu rèn luyện:', data.conductForm);
         this.form = data.conductForm;
-
+        // load học kì 
+        this.semesterId = data.conductForm.semester?.semesterId!;
+        this.findAllSemesters();
         // Load danh sách tiêu chí
         this.criteriaTypeService.getAllCriteriaGrouped().subscribe({
           next: (types: CriteriaTypeDTO[]) => {

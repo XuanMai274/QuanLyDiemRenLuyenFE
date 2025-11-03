@@ -13,7 +13,7 @@
     <select class="form-select" [(ngModel)]="form.semester" name="semester" [disabled]="!isEditable()">
       <option [ngValue]="null">-- Chọn học kỳ --</option>
       <option *ngFor="let s of semesters" [ngValue]="s">
-        {{ s.semesterName }}
+        {{ s.semesterName }} ({{s.year}})
       </option>
     </select>
   </div>

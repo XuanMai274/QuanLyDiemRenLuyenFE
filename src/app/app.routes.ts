@@ -35,7 +35,7 @@ export const routes: Routes = [
                 path: 'home', component: StudentDashboardComponent
             },
             {
-                path: 'ConductForm/create', component: ConductFormComponent
+                path: 'ConductForm/create/:semesterId', component: ConductFormComponent
             },
             {
                 path: 'ConductForm/All', component: ListConductFormComponent
