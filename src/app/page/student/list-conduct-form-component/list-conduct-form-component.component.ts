@@ -57,11 +57,9 @@ export class ListConductFormComponent {
   }
   getButtonLabel(form: ConductFormDTO): string {
     switch (form.status) {
-      case 'NOT_EVALUATED':
-        return 'Đánh giá';
       case 'PENDING':
         return 'Xem chi tiết';
-      case 'COMPLETED':
+      case 'APPROVED':
         return 'Xem kết quả';
       default:
         return '';

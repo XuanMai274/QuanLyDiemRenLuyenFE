@@ -1,28 +1,100 @@
-.conduct-form-list {
-  width: 80%;
-  margin: auto;
+.conduct-forms-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.table-section {
-  background-color: #f2f6fa;
+.section-title {
+  font-weight: 700;
+  color: #004085;
+  border-left: 5px solid #0d6efd;
+  padding-left: 10px;
 }
 
-.semester-title {
-  color: #e53935;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.label {
+.section-subtitle {
   font-weight: 600;
-  color: #c19a4a;
+  color: #0c5460;
+  border-left: 4px solid #20c997;
+  padding-left: 8px;
 }
 
-.action-cell {
+.card {
+  border-radius: 10px;
+  border: none;
+  overflow: hidden;
+}
+
+.custom-table {
+  width: 100%;
+  background-color: #fff;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.custom-table thead tr {
+  background-color: #e9f5ff;
+  color: #004085;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
   vertical-align: middle;
 }
 
-.btn {
-  padding: 4px 12px;
-  font-size: 0.9rem;
+.custom-table tbody tr {
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s ease-in-out;
 }
+
+.custom-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.semester-row td.semester-header {
+  background-color: #f1f8e9;
+  color: #388e3c;
+  font-weight: 600;
+  font-size: 1rem;
+  border-left: 4px solid #81c784;
+}
+
+.action-btn {
+  border-radius: 6px;
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  transform: scale(1.05);
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+.status-badge {
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd; /* vàng nhạt */
+  color: #856404; /* nâu cam nhẹ */
+  border: 1px solid #ffeeba;
+}
+
+.status-badge.approved {
+  background-color: #d1f2eb; /* xanh ngọc nhạt */
+  color: #117a65; /* xanh ngọc đậm */
+  border: 1px solid #a3e4d7;
+}
+

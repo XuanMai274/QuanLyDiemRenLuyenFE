@@ -1,11 +1,34 @@
 <header class="header">
-  <div class="welcome">
-    <span>Welcome back,</span>
-    <strong>Andrea 👋</strong>
-  </div>
+  <header class="header">
+    <!-- Logo -->
+    <div class="logo d-flex align-items-center">
+      <img src="assets/public/img/logo.png" alt="Logo" />
+      <div class="school-info ms-2">
+        <p class="text-blue">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
+        <p class="text-red fw-bold">TRƯỜNG ĐẠI HỌC ĐỒNG THÁP</p>
+      </div>
+    </div>
 
-  <div class="header-right">
-    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-    <img src="/assets/public/img/avatar.jpg" alt="User Avatar" class="avatar" />
-  </div>
+    <!-- Search -->
+    <div class="search-box">
+      <input type="text" placeholder="Tìm kiếm..." />
+      <i class="fa fa-search"></i>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu d-flex align-items-center">
+      <a routerLink="/" class="menu-item">
+        <i class="fa fa-home"></i> Trang chủ
+      </a>
+      <a routerLink="/news" class="menu-item position-relative">
+        <i class="fa fa-bell"></i> Tin tức
+        <span class="badge">10</span>
+      </a>
+      <div class="user d-flex align-items-center ms-3">
+        <i class="fa fa-user-circle"></i>
+        <span class="ms-1">{{currentManager?.fullname}}</span>
+      </div>
+    </div>
+  </header>
+
 </header>

@@ -1,98 +1,215 @@
-/* Overlay nền mờ */
+/* ===================== FORM TỔNG ===================== */
+.container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 1100px;
+  margin: 30px auto;
+  transition: all 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* ===================== TIÊU ĐỀ ===================== */
+h2 {
+  color: #1b4965;
+  font-weight: 700;
+  border-left: 5px solid #1b4965;
+  padding-left: 10px;
+  font-size: 1.8rem;
+}
+
+/* ===================== FORM LABEL ===================== */
+.form-label {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+
+.form-select:focus {
+  border-color: #1b4965;
+  box-shadow: 0 0 0 0.15rem rgba(27, 73, 101, 0.25);
+}
+
+/* ===================== BẢNG ===================== */
+.table {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.table th {
+  background-color: #e9f3f9;
+  color: #1b4965;
+  text-align: center;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.table td {
+  vertical-align: middle;
+  color: #34495e;
+}
+
+/* ===================== HEADER TỔNG ĐIỂM ===================== */
+.table-info {
+  background-color: #f3f8fb !important;
+  color: #0d3b66;
+}
+
+/* ===================== Ô NHẬP ===================== */
+input.form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+
+input.form-control:focus {
+  border-color: #1b4965;
+  box-shadow: 0 0 0 0.15rem rgba(27, 73, 101, 0.25);
+}
+
+/* ===================== ICON UPLOAD ===================== */
+.upload-icon {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 22px;
+  color: #0d6efd;
+  transition: all 0.3s ease;
+}
+
+.upload-icon:hover {
+  color: #0b5ed7;
+  transform: scale(1.15);
+}
+
+.disabled-label {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===================== ẢNH XEM TRƯỚC ===================== */
+.preview-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.preview-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ===================== FILE KHÔNG PHẢI ẢNH ===================== */
+.file-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.file-display i {
+  color: #6c757d;
+}
+
+/* ===================== NÚT XÓA ẢNH ===================== */
+.btn-close {
+  width: 20px;
+  height: 20px;
+  background-color: #dc3545 !important;
+  opacity: 1;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-close:hover {
+  transform: scale(1.1);
+  background-color: #b02a37 !important;
+}
+
+/* ===================== NÚT GỬI PHIẾU ===================== */
+.btn-primary {
+  background-color: #1b4965;
+  border-color: #1b4965;
+  padding: 10px 28px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #163b52;
+  border-color: #163b52;
+  transform: translateY(-2px);
+}
+
+/* ===================== OVERLAY ẢNH ===================== */
 .image-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(10, 10, 10, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  backdrop-filter: blur(4px);
 }
 
-/* Container chứa ảnh */
 .image-container {
   position: relative;
   max-width: 90%;
   max-height: 90%;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-/* Ảnh phóng to */
 .image-container img {
   max-width: 100%;
   max-height: 100%;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
 }
 
-/* Nút đóng */
+/* Nút đóng overlay */
 .btn-close-overlay {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: -12px;
+  right: -12px;
   background: #fff;
   border: none;
   border-radius: 50%;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
   z-index: 2001;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
 }
 
 .btn-close-overlay:hover {
   background: #f8d7da;
   color: #b71c1c;
 }
-/* Icon upload */
-.upload-icon {
-  display: inline-block;
-  cursor: pointer;
-  font-size: 22px;
-  color: #007bff;
-  transition: 0.3s;
-}
-.upload-icon:hover {
-  color: #0056b3;
-}
 
-/* Ảnh xem trước */
-.preview-image {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 1px solid #ddd;
-}
-
-/* Overlay xem ảnh lớn */
-.image-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.image-container {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-}
-.image-container img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-.btn-close-overlay {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
+/* ===================== GỢI Ý MÀU TỔNG ===================== */
+.table-primary {
+  background-color: #e3f2fd !important;
 }

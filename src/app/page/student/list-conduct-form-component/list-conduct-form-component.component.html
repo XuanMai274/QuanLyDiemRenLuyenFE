@@ -1,104 +1,96 @@
-<table class="table table-bordered text-center align-middle">
-  <thead class="table-primary">
-    <tr>
-      <th>Tổng điểm</th>
-      <th>Xếp loại</th>
-      <th>Trạng Thái/
-      <th>
-      <th>Ghi chú</th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="conduct-forms-container">
+  <h3 class="section-title mb-4">
+    <i class="bi bi-clipboard2-check text-primary me-2"></i>
+    Danh sách phiếu rèn luyện của bạn
+  </h3>
 
-  <tbody *ngIf="conductForms && conductForms.length > 0; else noData">
-    <ng-container *ngFor="let form of conductForms; let i = index">
-      <!-- Tiêu đề học kỳ -->
-      <tr class="table-secondary fw-bold">
-        <td colspan="6" class="text-start ps-3">
-          {{ form.semester?.semesterName }} ({{ form.semester?.year }})
-        </td>
-      </tr>
-
-      <!-- Dòng điểm rèn luyện -->
-      <tr>
-        <td>{{ form.totalStudentScore | number: '1.0-2' }}</td>
-        <td>{{ Grade(form.staffScore ?? 0) }}</td>
-        <td>{{form.status}}</td>
-        <td></td>
-        <td>
-          <button class="btn" [ngClass]="getButtonClass(form)" (click)="onAction(form)">
-            {{ getButtonLabel(form) }}
-          </button>
-        </td>
-      </tr>
-    </ng-container>
-
-  </tbody>
-
-  <ng-template #noData>
-    <tr>
-      <td colspan="6" class="text-center text-muted">Không có dữ liệu</td>
-    </tr>
-  </ng-template>
-</table>
-<!-- Danh sách học kỳ đang mở -->
-<div class="mt-4">
-  <h5 class="mb-3 text-primary">Các học kỳ đang mở đánh giá</h5>
-
-  <table class="table table-bordered text-center align-middle">
-    <thead class="table-success">
-      <tr>
-        <th>Tên học kỳ</th>
-        <th>Năm học</th>
-        <th>Thời gian bắt đầu</th>
-        <th>Thời gian kết thúc</th>
-        <th>Hành động</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="openSemesters && openSemesters.length > 0; else noOpenSemester">
-      <tr *ngFor="let semester of openSemesters">
-        <td>{{ semester.semesterName }}</td>
-        <td>{{ semester.year }}</td>
-        <td>{{ semester.evaluationStartDate }}</td>
-        <td>{{ semester.evaluationEndDate }}</td>
-        <td>
-          <button class="btn btn-primary" (click)="onCreateConductForm(semester.semesterId)">
-            Đánh giá
-          </button>
-        </td>
-      </tr>
-    </tbody>
-
-    <ng-template #noOpenSemester>
-      <tr>
-        <td colspan="5" class="text-muted">Hiện không có học kỳ nào đang mở đánh giá</td>
-      </tr>
-    </ng-template>
-  </table>
-</div>
-
-<!-- <div class="conduct-form-list">
-  <table class="table table-bordered text-center">
-    <tbody>
-      <ng-container *ngFor="let form of conductForms">
-        <tr class="table-section">
-          <td colspan="3" class="semester-title">
-            {{ form.semester?.semesterName }} ({{ form.semester?.year }})
-          </td>
-        </tr>
-
+  <div class="card shadow-sm mb-5">
+    <table class="table custom-table align-middle">
+      <thead>
         <tr>
-          <td class="label">Điểm rèn luyện</td>
-          <td>{{ form.staffScore }}</td>
-           <td></td>
-          <td class="action-cell">
-            <button class="btn" [ngClass]="getButtonClass(form)">
-              {{ getButtonLabel(form) }}
+          <th>Tổng điểm</th>
+          <th>Xếp loại</th>
+          <th>Trạng thái</th>
+          <th>Ghi chú</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="conductForms && conductForms.length > 0; else noData">
+        <ng-container *ngFor="let form of conductForms; let i = index">
+          <tr class="semester-row">
+            <td colspan="5" class="semester-header">
+              <i class="bi bi-calendar3 me-2"></i>
+              {{ form.semester?.semesterName }} ({{ form.semester?.year }})
+            </td>
+          </tr>
+
+          <tr>
+            <td>{{ form.totalStudentScore | number: '1.0-2' }}</td>
+            <td><span class="badge bg-info">{{ Grade(form.staffScore ?? 0) }}</span></td>
+            <td>
+              <span class="badge status-badge" [ngClass]="{
+                  'pending': form.status === 'PENDING',
+                  'approved': form.status === 'APPROVED'
+                }">
+                {{ form.status === 'PENDING' ? 'Đang chờ duyệt' : 'Đã duyệt' }}
+              </span>
+            </td>
+            <td class="text-muted fst-italic">--</td>
+            <td>
+              <button class="btn action-btn" [ngClass]="getButtonClass(form)" (click)="onAction(form)">
+                {{ getButtonLabel(form) }}
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+
+      <ng-template #noData>
+        <tr>
+          <td colspan="5" class="text-center text-muted py-4">Không có dữ liệu</td>
+        </tr>
+      </ng-template>
+    </table>
+  </div>
+
+  <h4 class="section-subtitle mb-3">
+    <i class="bi bi-hourglass-split text-success me-2"></i>
+    Các học kỳ đang mở đánh giá
+  </h4>
+
+  <div class="card shadow-sm">
+    <table class="table custom-table align-middle">
+      <thead>
+        <tr>
+          <th>Tên học kỳ</th>
+          <th>Năm học</th>
+          <th>Thời gian bắt đầu</th>
+          <th>Thời gian kết thúc</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="openSemesters && openSemesters.length > 0; else noOpenSemester">
+        <tr *ngFor="let semester of openSemesters">
+          <td>{{ semester.semesterName }}</td>
+          <td>{{ semester.year }}</td>
+          <td>{{ semester.evaluationStartDate }}</td>
+          <td>{{ semester.evaluationEndDate  }}</td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm" (click)="onCreateConductForm(semester.semesterId)">
+              <i class="bi bi-pencil-square me-1"></i> Đánh giá
             </button>
           </td>
         </tr>
-        
-      </ng-container>
-    </tbody>
-  </table>
-</div> -->
+      </tbody>
+
+      <ng-template #noOpenSemester>
+        <tr>
+          <td colspan="5" class="text-center text-muted py-4">
+            Hiện không có học kỳ nào đang mở đánh giá
+          </td>
+        </tr>
+      </ng-template>
+    </table>
+  </div>
+</div>

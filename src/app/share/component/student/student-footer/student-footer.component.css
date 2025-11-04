@@ -1,0 +1,16 @@
+.footer {
+  color: rgb(50, 42, 42);
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  left: 240px;              /* bắt đầu sau sidebar */
+  width: calc(100% - 220px);/* trừ phần sidebar */
+  z-index: 100;             /* nổi trên background */
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}

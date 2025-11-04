@@ -76,3 +76,18 @@
 .nav-links li.active a {
   transition: all 0.25s ease-in-out;
 }
+.sidebar li a {
+  font-size: 13px;      /* nhỏ hơn mặc định */
+  font-weight: 500;     /* trung bình, không quá mảnh */
+  color: #333;          /* màu chữ nhẹ nhàng hơn */
+}
+
+.sidebar li a i {
+  font-size: 14px;      /* icon nhỏ gọn hơn */
+  margin-right: 8px;
+}
+
+.sidebar li.active a {
+  color: #f9fafb;       /* màu khi active */
+  font-weight: 600;
+}
