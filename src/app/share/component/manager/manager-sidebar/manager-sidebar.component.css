@@ -1,6 +1,6 @@
 /* --- Sidebar container --- */
 .sidebar {
-  width: 230px;
+  width: 300px;
   background: linear-gradient(180deg, #cfe0eb, #95bacf);
   padding: 25px 15px;
   display: flex;
@@ -75,4 +75,43 @@
 .nav-links a,
 .nav-links li.active a {
   transition: all 0.25s ease-in-out;
+}
+.submenu {
+  list-style: none;
+  padding-left: 35px;
+  margin-top: 6px;
+  display: none;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+/* Khi li có class "open" thì hiển thị submenu */
+.has-submenu.open .submenu {
+  display: flex;
+}
+
+/* Submenu link style */
+.submenu a {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  color: #2d719a;
+  background-color: rgba(45, 113, 154, 0.05);
+}
+
+.submenu a:hover {
+  background-color: rgba(45, 113, 154, 0.15);
+  transform: translateX(3px);
+  font-weight: 600;
+}
+
+/* Icon mũi tên quay khi mở submenu */
+.has-submenu .arrow {
+  margin-left: auto;
+  font-size: 13px;
+  transition: transform 0.3s ease;
+}
+
+.has-submenu.open .arrow {
+  transform: rotate(180deg);
 }

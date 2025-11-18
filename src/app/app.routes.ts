@@ -8,6 +8,10 @@ import { ManagerComponent } from './layout/manager/manager.component';
 import { StudentComponent } from './layout/student/student.component';
 import { ConductFormComponent } from './page/student/conduct-form-component/conduct-form-component.component';
 import { ListConductFormComponent } from './page/student/list-conduct-form-component/list-conduct-form-component.component';
+import { CreateBatchComponent } from './page/admin/create-batch/create-batch.component';
+import { SemestersComponent } from './page/admin/semesters/semesters.component';
+import { NotificationComponent } from './page/admin/notification/notification.component';
+import { NotificationStudentComponent } from './page/student/notification/notification.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -22,6 +26,15 @@ export const routes: Routes = [
         children: [
             {
                 path: 'home', component: AdminDashboardComponent
+            },
+            {
+                path: 'tao-dot-ren-luyen', component: CreateBatchComponent
+            },
+            {
+                path: 'quan-ly-hoc-ki', component: SemestersComponent
+            },
+            {
+                path: 'quan-ly-thong-bao', component: NotificationComponent
             }
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['MANAGER'] }
@@ -39,8 +52,12 @@ export const routes: Routes = [
             },
             {
                 path: 'ConductForm/All', component: ListConductFormComponent
-            }, {
+            },
+            {
                 path: 'ConductForm/:id', component: ConductFormComponent
+            },
+            {
+                path: 'thong-bao', component: NotificationStudentComponent
             }
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['STUDENT', 'CLASS_MONITOR'] }

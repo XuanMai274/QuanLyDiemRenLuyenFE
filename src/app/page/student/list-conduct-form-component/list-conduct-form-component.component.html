@@ -1,8 +1,8 @@
 <div class="conduct-forms-container">
-  <h3 class="section-title mb-4">
+  <!-- <h3 class="section-title mb-4">
     <i class="bi bi-clipboard2-check text-primary me-2"></i>
     Danh sách phiếu rèn luyện của bạn
-  </h3>
+  </h3> -->
 
   <div class="card shadow-sm mb-5">
     <table class="table custom-table align-middle">
@@ -26,7 +26,15 @@
           </tr>
 
           <tr>
-            <td>{{ form.totalStudentScore | number: '1.0-2' }}</td>
+            <td *ngIf="form.totalStudentScore !== undefined" [ngClass]="{
+              'high-score': +form.totalStudentScore >= 80,
+              'medium-score': +form.totalStudentScore >= 50 && +form.totalStudentScore < 80,
+              'low-score': +form.totalStudentScore < 50
+            }">
+              <i class="fa-solid fa-chart-line"></i>
+              {{ form.totalStudentScore | number: '1.0-2' }}
+            </td>
+
             <td><span class="badge bg-info">{{ Grade(form.staffScore ?? 0) }}</span></td>
             <td>
               <span class="badge status-badge" [ngClass]="{

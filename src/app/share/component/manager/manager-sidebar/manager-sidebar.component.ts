@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-manager-sidebar',
@@ -7,5 +7,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './manager-sidebar.component.css'
 })
 export class ManagerSidebarComponent {
+  activeSubmenu: string | null = null;
 
+  toggleSubmenu(name: string) {
+    this.activeSubmenu = this.activeSubmenu === name ? null : name;
+  }
 }

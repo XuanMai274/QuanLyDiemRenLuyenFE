@@ -4,6 +4,7 @@
   </div>
 
   <ul class="nav-links">
+    <!-- Dashboard -->
     <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <a [routerLink]="'/manager'">
         <i class="fa-solid fa-chart-line"></i>
@@ -11,52 +12,49 @@
       </a>
     </li>
 
-    <li routerLinkActive="active">
-      <a [routerLink]="'/manager/home'">
+    <!-- Quản lý rèn luyện -->
+    <li class="has-submenu" [class.open]="activeSubmenu === 'renluyen'">
+      <a href="javascript:void(0)" (click)="toggleSubmenu('renluyen')" class="submenu-toggle">
         <i class="fa-solid fa-users"></i>
-        <span>Squad</span>
+        <span>Quản Lý Rèn Luyện</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
       </a>
+
+      <ul class="submenu">
+        <li routerLinkActive="active">
+          <a [routerLink]="'/manager/tao-dot-ren-luyen'">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span>Tạo Đợt</span>
+          </a>
+        </li>
+        <li routerLinkActive="active">
+          <a [routerLink]="'/manager/approve'">
+            <i class="fa-solid fa-check-circle"></i>
+            <span>Duyệt</span>
+          </a>
+        </li>
+      </ul>
     </li>
 
+    <!-- Các mục khác -->
     <li routerLinkActive="active">
-      <a [routerLink]="'/manager/messages'">
+      <a [routerLink]="'/manager/quan-ly-hoc-ki'">
         <i class="fa-solid fa-comments"></i>
-        <span>Messenger</span>
+        <span>Quản lý học kì</span>
       </a>
     </li>
 
     <li routerLinkActive="active">
-      <a [routerLink]="'/manager/statistics'">
+      <a [routerLink]="'/manager/quan-ly-thong-bao'">
         <i class="fa-solid fa-chart-pie"></i>
-        <span>Statistic</span>
+        <span>Thông báo</span>
       </a>
     </li>
 
     <li routerLinkActive="active">
       <a [routerLink]="'/manager/calendar'">
         <i class="fa-solid fa-calendar"></i>
-        <span>Calendar</span>
-      </a>
-    </li>
-
-    <li routerLinkActive="active">
-      <a [routerLink]="'/manager/finance'">
-        <i class="fa-solid fa-wallet"></i>
-        <span>Finance</span>
-      </a>
-    </li>
-
-    <li routerLinkActive="active">
-      <a [routerLink]="'/manager/transfers'">
-        <i class="fa-solid fa-arrows-rotate"></i>
-        <span>Transfers</span>
-      </a>
-    </li>
-
-    <li routerLinkActive="active">
-      <a [routerLink]="'/manager/academy'">
-        <i class="fa-solid fa-graduation-cap"></i>
-        <span>Youth Academy</span>
+        <span>Thống kê</span>
       </a>
     </li>
   </ul>

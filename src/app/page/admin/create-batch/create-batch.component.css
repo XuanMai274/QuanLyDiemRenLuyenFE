@@ -1,0 +1,143 @@
+.semester-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 40px 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section-title {
+  font-weight: 700;
+  color: #40657a;
+;
+}
+
+.btn-create {
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-create:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(0, 128, 0, 0.2);
+}
+
+/* Card layout */
+.card {
+  border-radius: 10px;
+  border: none;
+}
+
+.card-header {
+  font-size: 1rem;
+  padding: 10px 16px;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+.custom-table thead tr {
+  background-color: #f2f8ff;
+  color: #2b5f7e;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* ===== MODAL STYLING ===== */
+
+/* Nền mờ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+
+/* Modal chính */
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 550px;
+  max-width: 95%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  overflow: hidden;
+  animation: fadeIn 0.25s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh; /* 🔹 Chiều cao tối đa cố định */
+}
+
+/* Header modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  flex-shrink: 0;
+}
+
+/* Thân modal */
+.modal-body {
+  padding: 20px;
+  overflow-y: auto; /* 🔹 Scroll riêng cho phần nội dung */
+  flex-grow: 1;
+}
+
+/* Footer modal */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  flex-shrink: 0;
+}
+
+/* Danh sách học kỳ */
+.list-group {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  max-height: 200px; /* 🔹 Giới hạn chiều cao riêng cho danh sách */
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+/* Thanh cuộn */
+.list-group::-webkit-scrollbar {
+  width: 8px;
+}
+.list-group::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+  border-radius: 4px;
+}
+.list-group::-webkit-scrollbar-thumb:hover {
+  background: #6c757d;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

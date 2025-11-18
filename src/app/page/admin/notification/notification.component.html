@@ -1,0 +1,96 @@
+<div class="notification-container">
+  <h2>Danh sách thông báo</h2>
+  <button class="add-btn" (click)="openAddForm()">Thêm thông báo</button>
+
+  <!-- POPUP: Form thêm / sửa -->
+  <div class="overlay" *ngIf="showForm">
+    <div class="popup">
+      <h3>{{ isEdit ? 'Cập nhật thông báo' : 'Thêm thông báo mới' }}</h3>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <label>Tiêu đề</label>
+        <input formControlName="title" type="text" />
+
+        <label>Nội dung</label>
+        <editor formControlName="content" [apiKey]="'hzqvekar7x08uycop3yi0u1uszhrv4brvjndfxblep0evjcq'" [init]="{
+            height: 200,
+            menubar: false,
+            plugins: ['lists link image preview'],
+            toolbar: 'undo redo | bold italic underline | bullist numlist | link image'
+          }">
+        </editor>
+
+        <!-- Hai cột -->
+        <div class="form-row">
+          <div class="form-col">
+            <label>Loại</label>
+            <input formControlName="type" type="text" />
+          </div>
+
+          <div class="form-col">
+            <label>Trạng thái</label>
+            <input formControlName="status" type="text" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <label>Ngày bắt đầu</label>
+            <input formControlName="startDate" type="datetime-local" />
+          </div>
+          <div class="form-col">
+            <label>Ngày kết thúc</label>
+            <input formControlName="endDate" type="datetime-local" />
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="save-btn">{{ isEdit ? 'Cập nhật' : 'Lưu' }}</button>
+          <button type="button" class="cancel-btn" (click)="closeForm()">Hủy</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- POPUP: Xem chi tiết -->
+  <div class="overlay" *ngIf="showDetail">
+    <div class="popup">
+      <h3 style="font-weight: bold;">{{ selected?.title }}</h3>
+
+      <p><strong>Loại:</strong> {{ selected?.type }}</p>
+      <p><strong>Trạng thái:</strong> {{ selected?.status }}</p>
+
+      <p><strong>Ngày bắt đầu:</strong> {{ selected?.readableStartDate }}</p>
+      <p><strong>Ngày kết thúc:</strong> {{ selected?.readableEndDate }}</p>
+
+      <p><strong>Nội dung:</strong></p>
+      <div [innerHTML]="selected?.content"></div>
+
+      <div class="btn-group">
+        <button class="cancel-btn" (click)="closeDetail()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danh sách thông báo -->
+  <div class="list-container">
+    <div class="item" *ngFor="let n of notifications">
+      <h4 style="font-weight: bold;">{{ n.title }}</h4>
+
+      <p class="preview-text">
+        <span [innerHTML]="n.content"></span>
+      </p>
+
+      <span class="meta">Loại: {{ n.type }} | Trạng thái: {{ n.status }}</span>
+      <span class="date">Tạo lúc: {{ n.createAt }}</span>
+
+      <!-- Nút xem và sửa -->
+      <div class="action-buttons">
+        <button class="view-btn" (click)="openDetail(n)">Xem</button>
+        <button class="edit-btn" (click)="openEditForm(n)">Sửa</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import { ConductFormDTO } from '../models/conductForm.model';
 
 @Injectable({ providedIn: 'root' })
 export class ConductFormService {
-    private apiUrl = 'http://localhost:8080/conductForm/create';
+    private apiUrl = 'http://localhost:8080/conductForm';
 
     constructor(private http: HttpClient) { }
     createConductForm(form: any): Observable<any> {
@@ -48,7 +48,7 @@ export class ConductFormService {
         });
 
         //Không set header thủ công, để Angular tự gán multipart boundary
-        return this.http.post(this.apiUrl, formData);
+        return this.http.post(this.apiUrl + "/create", formData);
     }
 
     findAllByStudentId(): Observable<ConductFormDTO[]> {
@@ -66,49 +66,55 @@ export class ConductFormService {
 
     }
     // hàm cập nhật lại phiếu rèn luyện
-    updateConductForm(form: any): Observable<any> {
+    updateConductForm(form: ConductFormDTO, conductFormId: number): Observable<any> {
         const formData = new FormData();
 
-        //Clone object để loại bỏ file khỏi DTO trước khi gửi
-        const dtoCopy = JSON.parse(JSON.stringify(form));
-        dtoCopy.conductFormDetailList = dtoCopy.conductFormDetailList.map((d: any) => {
-            const { file, ...rest } = d;
-            return rest;
-        });
+        // Tạo DTO sạch (không có file, previewUrl, fileChanged)
+        const cleanDto: any = {
+            conductFormId: form.conductFormId,
+            semester: form.semester,
+            totalStudentScore: form.totalStudentScore,
+            classMonitorScore: form.classMonitorScore,
+            staffScore: form.staffScore,
+            status: form.status,
+            createAt: form.createAt,
+            student: form.student,
+            conductFormDetailList: form.conductFormDetailList.map(d => {
+                const { file, previewUrl, fileName, fileChanged, ...rest } = d as any;
+                return {
+                    ...rest,
+                    existingFileUrl: d.existingFileUrl || null
+                };
+            })
+        };
 
-        //Thêm phần JSON chính (conductForm)
-        formData.append(
-            'conductForm',
-            new Blob([JSON.stringify(dtoCopy)], { type: 'application/json' })
-        );
+        formData.append('conductForm', new Blob([JSON.stringify(cleanDto)], { type: 'application/json' }));
 
-        //Gom tất cả detailMeta vào 1 mảng
-        const detailMetaArray = form.conductFormDetailList
-            .filter((detail: any) => detail.file) // chỉ lấy detail có file
-            .map((detail: any) => ({
+        // LẤY TẤT CẢ DETAIL CÓ THAY ĐỔI
+        const changedDetails = form.conductFormDetailList.filter(d => d.fileChanged === true);
+
+        if (changedDetails.length > 0) {
+            // Tạo meta array – lưu lại thứ tự chính xác
+            const detailMetaArray = changedDetails.map(detail => ({
+                criteriaId: detail.criteria!.criteriaId,
                 tempId: detail.tempId,
-                criteriaId: detail.criteria.criteriaId,
+                deleteOldFile: detail.fileChanged && detail.existingFileUrl != null && detail.file == null
             }));
 
-        //Gửi mảng JSON 1 lần duy nhất
-        if (detailMetaArray.length > 0) {
-            formData.append(
-                'detailMeta',
-                new Blob([JSON.stringify(detailMetaArray)], { type: 'application/json' })
-            );
+            formData.append('detailMeta', new Blob([JSON.stringify(detailMetaArray)], { type: 'application/json' }));
+            console.log("dữ liệu json của conductForm", formData.getAll('conductForm'));
+            // QUAN TRỌNG NHẤT: GỬI FILE THEO ĐÚNG THỨ TỰ TRONG detailMetaArray
+            // Chỉ gửi file cho những meta có file mới (deleteOldFile = false và có file)
+            detailMetaArray.forEach((meta, index) => {
+                const detail = changedDetails[index];
+                if (detail.file instanceof File) {
+                    formData.append('detailFiles', detail.file, detail.file.name);
+                }
+            });
         }
 
-        //Gửi từng file
-        form.conductFormDetailList.forEach((detail: any) => {
-            if (detail.file) {
-                formData.append('detailFiles', detail.file);
-            }
-        });
-
-        //Không set header thủ công, để Angular tự gán multipart boundary
-        return this.http.post(this.apiUrl, formData);
+        return this.http.post(`http://localhost:8080/conductForm/update/${conductFormId}`, formData);
     }
-
     // createConductForm(form: any): Observable<any> {
     //     const formData = new FormData();
 
@@ -140,3 +146,7 @@ export class ConductFormService {
     //     return this.http.post(this.apiUrl, formData);
     // }
 }
+function uuidv4(): any {
+    throw new Error('Function not implemented.');
+}
+

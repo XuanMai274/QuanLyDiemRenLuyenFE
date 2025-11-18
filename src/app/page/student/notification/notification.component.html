@@ -1,0 +1,48 @@
+<div class="notification-container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>📢 Danh sách thông báo</h2>
+  </div>
+
+  <!-- Danh sách thông báo -->
+  <div class="list-container">
+    <div class="notification-card" *ngFor="let n of notifications">
+
+      <div class="card-content">
+        <h3>{{ n.title }}</h3>
+        <p class="preview-text" [innerHTML]="n.content | slice:0:150"></p>
+        <div class="meta">
+          <span>Loại: {{ n.type || 'Chưa phân loại' }}</span> |
+          <span>Trạng thái: {{ n.status }}</span>
+        </div>
+        <div class="date">
+          Tạo lúc: {{ n.createAt | date:'dd/MM/yyyy HH:mm' }}
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="view-btn" (click)="openDetail(n)">Xem</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup xem chi tiết -->
+  <div class="overlay" *ngIf="showDetail">
+    <div class="popup">
+      <h3>{{ selected?.title }}</h3>
+
+      <p><b>Loại:</b> {{ selected?.type || 'Chưa phân loại' }}</p>
+      <p><b>Trạng thái:</b> {{ selected?.status }}</p>
+      <p><b>Ngày bắt đầu:</b> {{ selected?.startDate | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><b>Ngày kết thúc:</b> {{ selected?.endDate | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><b>Nội dung:</b></p>
+      <div [innerHTML]="selected?.content"></div>
+
+      <div class="btn-group">
+        <button class="cancel-btn" (click)="closeDetail()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,129 @@
+<div class="semester-container">
+  <div class="header-section d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="section-title">
+        <i style="color: #24688f;" class="fa-solid fa-calendar-check me-2"></i>
+        Quản lý đợt rèn luyện
+      </h2>
+      <p class="text-muted mb-0">Theo dõi và tạo mới các học kỳ đánh giá rèn luyện</p>
+    </div>
+
+    <button style="background-color: rgb(224, 224, 224);" class="btn btn-create" (click)="openCreateModal()">
+      <i class="fa-solid fa-plus me-1"></i> Tạo đợt rèn luyện mới
+    </button>
+  </div>
+
+  <!-- Học kỳ đang mở -->
+  <div class="card shadow-sm mb-5">
+    <div style="background-color: #377ca3;" class="card-header text-white fw-semibold">
+      <i class="fa-solid fa-unlock me-2"></i> Học kỳ đang mở đánh giá
+    </div>
+    <div class="card-body p-0">
+      <table class="table custom-table align-middle">
+        <thead>
+          <tr>
+            <th>Tên học kỳ</th>
+            <th>Năm học</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="openSemesters.length > 0; else noOpen">
+          <tr *ngFor="let s of openSemesters">
+            <td>{{ s.semesterName }}</td>
+            <td>{{ s.year }}</td>
+            <td>{{ s.evaluationStartDate }}</td>
+            <td>{{ s.evaluationEndDate }}</td>
+            <td><span class="badge bg-success">Đang mở</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noOpen>
+        <div class="text-center text-muted py-4">Không có học kỳ nào đang mở.</div>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Học kỳ đã mở -->
+  <div class="card shadow-sm">
+    <div style="background-color:#498cb3 ;color: white;" class="card-header fw-semibold">
+      <i class="fa-solid fa-clock-rotate-left me-2"></i> Học kỳ đã mở trước đây
+    </div>
+    <div class="card-body p-0">
+      <table class="table custom-table align-middle">
+        <thead>
+          <tr>
+            <th>Tên học kỳ</th>
+            <th>Năm học</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="openedSemesters.length > 0; else noOpened">
+          <tr *ngFor="let s of openedSemesters">
+            <td>{{ s.semesterName }}</td>
+            <td>{{ s.year }}</td>
+            <td>{{ s.evaluationStartDate  }}</td>
+            <td>{{ s.evaluationEndDate  }}</td>
+            <td><span class="badge bg-secondary">Đã kết thúc</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noOpened>
+        <div class="text-center text-muted py-4">Chưa có học kỳ nào đã mở trước đây.</div>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Modal chọn học kỳ để tạo -->
+  <div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
+  <div class="custom-modal" *ngIf="showModal">
+    <div class="modal-header">
+      <h5>
+        <i class="fa-solid fa-calendar-plus text-primary me-2"></i>
+        Chọn học kỳ và thời gian đánh giá
+      </h5>
+      <button class="btn-close" (click)="closeModal()"></button>
+    </div>
+
+    <div class="modal-body">
+      <div *ngIf="availableSemesters.length === 0" class="text-muted text-center py-3">
+        Không có học kỳ nào khả dụng để tạo đợt.
+      </div>
+
+      <div *ngIf="availableSemesters.length > 0">
+        <div class="list-group mb-3">
+          <label style="margin-bottom: 10px;" *ngFor="let s of availableSemesters"
+            class="list-group-item list-group-item-action">
+            <input type="radio" name="semester" [value]="s.semesterId" [(ngModel)]="selectedSemesterId" />
+            <span class="ms-2 fw-semibold">{{ s.semesterName }} - {{ s.year }}</span>
+          </label>
+        </div>
+
+        <!-- Nhập ngày bắt đầu và kết thúc -->
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Ngày bắt đầu đánh giá</label>
+            <input type="date" class="form-control" [(ngModel)]="evaluationStartDate" name="startDate" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Ngày kết thúc đánh giá</label>
+            <input type="date" class="form-control" [(ngModel)]="evaluationEndDate" name="endDate" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-outline-secondary" (click)="closeModal()">Hủy</button>
+      <button style="margin-left: 20px;" class="btn btn-primary"
+        [disabled]="!selectedSemesterId || !evaluationStartDate || !evaluationEndDate" (click)="createSemester()">
+        Xác nhận tạo
+      </button>
+    </div>
+  </div>
+</div>

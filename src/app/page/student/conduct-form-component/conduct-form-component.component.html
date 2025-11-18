@@ -76,18 +76,24 @@
               class="img-thumbnail preview-image" (click)="openImagePreview(detailMap[c.criteriaId].previewUrl!)" />
             <!-- Nếu là PDF / Word -->
             <div *ngIf="!detailMap[c.criteriaId]?.previewUrl && detailMap[c.criteriaId]?.fileName"
-              class="file-display border p-2 rounded bg-light text-start small">
-              <i class="fa-solid fa-file" style="color: #6c757d"></i>
-              <a [href]="detailMap[c.criteriaId].file" target="_blank" class="text-decoration-none text-dark">
+              class="file-display border p-2 rounded bg-light text-start small d-flex align-items-center">
+
+              <i class="fa-solid fa-file me-2" style="color: #6c757d; flex-shrink: 0;"></i>
+
+              <a [href]="getFileUrl(c.criteriaId)" target="_blank" rel="noopener"
+                class="text-decoration-none text-dark text-truncate d-block" style="max-width: 180px;"
+                [title]="detailMap[c.criteriaId].fileName">
                 {{ detailMap[c.criteriaId].fileName }}
               </a>
             </div>
-
             <!-- Nút xóa -->
-            <button *ngIf="detailMap[c.criteriaId]?.file" type="button"
-              class="btn-close position-absolute top-0 start-100 translate-middle bg-danger rounded-circle"
+            <button *ngIf="
+          detailMap[c.criteriaId]?.previewUrl || 
+          (detailMap[c.criteriaId]?.fileName && !detailMap[c.criteriaId]?.fileDeleted)
+        " type="button" class="btn-close position-absolute top-0 start-100 translate-middle bg-danger rounded-circle"
               style="transform: translate(-30%, 30%)" (click)="removeImage(detailMap[c.criteriaId])"
-              [disabled]="!isEditable()"></button>
+              [disabled]="!isEditable()">
+            </button>
           </div>
         </td>
 
@@ -104,9 +110,16 @@
   </div>
 
   <div class="text-center mt-4">
-    <button class="btn btn-primary px-4" (click)="submit()" [disabled]="!isEditable() || loading">
-      Gửi phiếu rèn luyện
-    </button>
+    <button class="btn btn-primary px-5 py-2" (click)="submit()" [disabled]="!isEditable() || loading">
 
+      <span *ngIf="!loading">
+        Gửi phiếu rèn luyện
+      </span>
+
+      <span *ngIf="loading">
+        <i class="fas fa-spinner fa-spin me-2"></i>
+        Đang gửi...
+      </span>
+    </button>
   </div>
 </div>

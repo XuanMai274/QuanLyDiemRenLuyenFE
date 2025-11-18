@@ -1,0 +1,54 @@
+<div class="semester-container">
+
+  <h2>Quản lý học kỳ</h2>
+
+  <!-- ============================= -->
+  <!-- FORM (Thêm / Sửa) -->
+  <!-- ============================= -->
+  <div *ngIf="showForm" class="semester-form">
+    <h3>{{ isEdit ? 'Cập nhật học kỳ' : 'Thêm học kỳ mới' }}</h3>
+
+    <label>Tên học kỳ</label>
+    <input type="text" [(ngModel)]="currentSemester.semesterName">
+
+    <label>Ngày bắt đầu</label>
+    <input type="date" [(ngModel)]="currentSemester.startDate">
+
+    <label>Ngày kết thúc</label>
+    <input type="date" [(ngModel)]="currentSemester.endDate">
+
+    <div class="form-actions">
+      <button class="btn-save" (click)="saveSemester()">Lưu</button>
+      <button class="btn-cancel" (click)="cancel()">Hủy</button>
+    </div>
+  </div>
+
+  <!-- ============================= -->
+  <!-- DANH SÁCH HỌC KỲ -->
+  <!-- ============================= -->
+  <div *ngIf="!showForm" class="semester-list">
+    <button class="btn-add" (click)="openAddForm()">+ Thêm học kỳ</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Tên học kỳ</th>
+          <th>Ngày bắt đầu</th>
+          <th>Ngày kết thúc</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of semesters">
+          <td>{{ s.semesterName }}</td>
+          <td>{{ s.startDate }}</td>
+          <td>{{ s.endDate }}</td>
+          <td>
+            <button class="btn-edit" (click)="openEditForm(s)">Sửa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

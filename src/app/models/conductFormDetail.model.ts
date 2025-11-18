@@ -12,4 +12,7 @@ export interface ConductFormDetailDTO {
     previewUrl?: string | null; // URL tạm thời để hiển thị ảnh xem trước
     fileName?: string | null;   // Tên file cho PDF/Word
     criteria: CriteriaDTO;
+    existingFileUrl?: string | null;    // URL file đã lưu trên server (nếu có)
+    fileChanged?: boolean;              // đánh dấu có thay đổi file không
+    fileDeleted?: boolean;              // đánh dấu file đã bị xóa
 }

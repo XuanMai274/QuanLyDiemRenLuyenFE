@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { SemesterService } from '../../../service/semesterService';
 import { SemesterDTO } from '../../../models/semester.model';
+
 @Component({
   selector: 'app-list-conduct-form-component',
   imports: [CommonModule, RouterModule],

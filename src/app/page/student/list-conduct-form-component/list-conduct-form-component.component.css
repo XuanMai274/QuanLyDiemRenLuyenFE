@@ -97,4 +97,18 @@
   color: #117a65; /* xanh ngọc đậm */
   border: 1px solid #a3e4d7;
 }
+.high-score {
+  color: #155724;
+  font-weight: bold;
+}
+
+.medium-score {
+  color: #856404;
+  font-weight: bold;
+}
+
+.low-score {
+  color: #a1202d;
+  font-weight: bold;
+}
 

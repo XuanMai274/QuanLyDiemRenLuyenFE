@@ -1,0 +1,136 @@
+/* ======================= */
+/*     CONTAINER CHUNG      */
+/* ======================= */
+.semester-container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
+
+/* Header */
+.semester-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Tiêu đề */
+.semester-container .header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e3e62;
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: 3px solid #7cb8ff;
+  letter-spacing: 0.5px;
+}
+
+/* Nút thêm học kỳ */
+.semester-container .header .btn-primary {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #4e9af1, #1e69d2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.semester-container .header .btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ======================= */
+/*       DANH SÁCH          */
+/* ======================= */
+.semester-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+/* Card học kỳ */
+.semester-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.semester-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Thông tin học kỳ */
+.semester-card h3 {
+  margin: 0 0 8px 0;
+  color: #2d719a;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.semester-card p {
+  margin: 3px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Badge trạng thái */
+.semester-card .badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  background: #7f8c8d;
+  transition: 0.2s;
+}
+
+.semester-card .badge.open {
+  background: #3dbb6f;
+}
+
+/* Nút sửa */
+.semester-card .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.semester-card .actions .btn-edit {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #2d719a;
+  background: transparent;
+  color: #2d719a;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.semester-card .actions .btn-edit:hover {
+  background: #2d719a;
+  color: white;
+}
+
+/* Responsive nhỏ */
+@media screen and (max-width: 768px) {
+  .semester-list {
+    grid-template-columns: 1fr;
+  }
+}

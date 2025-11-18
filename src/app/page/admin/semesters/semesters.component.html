@@ -1,0 +1,36 @@
+<div class="semester-container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Quản lý học kỳ</h2>
+    <button class="btn-primary" (click)="openAddSemester()">+ Thêm học kỳ</button>
+  </div>
+
+  <!-- Danh sách học kỳ -->
+  <div class="semester-list">
+    <div class="semester-card" *ngFor="let item of semesters">
+
+      <!-- Thông tin học kỳ -->
+      <div class="semester-info">
+        <h3>{{ item.semesterName }}</h3>
+        <p><b>Năm học:</b> {{ item.year }}</p>
+        <p><b>Bắt đầu:</b> {{ item.startDate  }}</p>
+        <p><b>Kết thúc:</b> {{ item.endDate  }}</p>
+        <p><b>Đánh giá:</b>
+          {{ item.evaluationStartDate }} →
+          {{ item.evaluationEndDate }}
+        </p>
+        <span class="badge" [class.open]="item.isOpen">
+          {{ item.isOpen ? 'Đang mở' : 'Đã đóng' }}
+        </span>
+      </div>
+
+      <!-- Nút hành động -->
+      <div class="actions">
+        <button class="btn-edit" (click)="openEditSemester(item)">Sửa</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
