@@ -1,0 +1,311 @@
+/* =========================
+   Page root
+   ========================= */
+.page-root {
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+  color: #3a4a5c;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* Button chung */
+  .btn {
+    cursor: pointer;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover {
+    opacity: 0.85;
+  }
+
+  /* =========================
+     Danh sách loại tiêu chí
+     ========================= */
+  .criteria-types {
+    .criteria-type {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 15px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .criteria-type:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Header loại tiêu chí */
+    .type-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .type-header strong {
+      font-size: 18px;
+    }
+
+    .type-header button {
+      background: #417c9e;
+      color: white;
+      border-radius: 4px;
+      padding: 4px 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .type-header button:hover {
+      opacity: 0.85;
+    }
+
+    /* Danh sách tiêu chí con */
+    ul {
+      margin-top: 12px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    ul li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    ul li span {
+      font-size: 16px;
+    }
+
+    ul li div button {
+      margin-left: 5px;
+      background: #95bacf;
+      border: none;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    ul li div button:hover {
+      background: #dcdcdc;
+    }
+
+    /* Button thêm tiêu chí */
+    ul > button {
+      margin-top: 8px;
+      background: #417c9e;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    ul > button:hover {
+      opacity: 0.9;
+    }
+  }
+
+  /* =========================
+     Drawer
+     ========================= */
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    max-width: 90%;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+    padding: 25px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+
+  .drawer.show {
+    transform: translateX(0);
+  }
+
+  .drawer h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #2c3e50;
+  }
+
+  .drawer .form-group {
+    margin-bottom: 15px;
+  }
+
+  .drawer .form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .drawer input,
+  .drawer textarea,
+  .drawer select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+  }
+
+  .drawer input:focus,
+  .drawer textarea:focus,
+  .drawer select:focus {
+    border-color: #95bacf;
+    outline: none;
+    box-shadow: 0 0 5px rgba(149, 186, 207, 0.4);
+  }
+
+  .drawer textarea {
+    resize: none;
+  }
+
+  /* Checkbox group */
+  .drawer .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Dropdown loại tiêu chí khi sửa */
+  .drawer .criteria-type-group select {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  /* Drawer buttons */
+  .drawer-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .drawer-actions button {
+    flex: 1;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+  }
+
+  .drawer-actions .btn-cancel {
+    background: #f0f0f0;
+  }
+
+  .drawer-actions .btn-cancel:hover {
+    background: #e0e0e0;
+  }
+
+  .drawer-actions .btn-save {
+    background: #417c9e;
+    color: white;
+  }
+
+  .drawer-actions .btn-save:hover {
+    opacity: 0.9;
+  }
+  .criteria-type button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  .criteria-type button i {
+    color:#417c9e;
+    transition: color 0.2s;
+  }
+
+  .criteria-type button:hover i {
+    color: gray; 
+  }
+  /* Container nút hành động */
+  .criteria-actions {
+    display: flex;
+    gap: 5px;
+  }
+
+  /* Nút chung */
+  .criteria-actions button {
+    background: transparent  !important;     
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hover effect */
+  .criteria-actions button:hover {
+    background: rgba(65, 124, 158, 0.1); /* nền nhẹ khi hover */
+    transform: translateY(-1px);         /* nâng nhẹ */
+  }
+
+  /* Icon màu mặc định và hover */
+  .criteria-actions button i {
+    color: #417c9e;        /* màu icon mặc định */
+    transition: color 0.2s;
+  }
+
+  .criteria-actions button:hover i {
+    color: #1f4e75;        /* đổi màu icon khi hover */
+  }
+
+  /* Chữ ↑ ↓ trong button */
+  .criteria-actions button:not(:has(i)) {
+    color: #417c9e;
+    font-weight: bold;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .criteria-actions button:not(:has(i)):hover {
+    color: #1f4e75;
+    transform: translateY(-1px);
+    }
+    .criteria-type-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+
+    white-space: nowrap;       /* không xuống dòng */
+    overflow: hidden;          /* ẩn phần thừa */
+    text-overflow: ellipsis;   /* hiển thị dấu ... */
+    cursor: pointer;
+  }
+
+
+}

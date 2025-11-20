@@ -13,4 +13,10 @@ export class CriteriaTypeService {
     getAllCriteriaGrouped(): Observable<CriteriaTypeDTO[]> {
         return this.http.get<CriteriaTypeDTO[]>(`${this.apiUrl}/criteriaType/getAll`);
     }
+    createCriteriaType(criteriaType: CriteriaTypeDTO): Observable<CriteriaTypeDTO> {
+        return this.http.post<CriteriaTypeDTO>(`${this.apiUrl}/manager/criteriaType/create`, criteriaType);
+    }
+    updateCriteriaType(criteriaType: CriteriaTypeDTO): Observable<CriteriaTypeDTO> {
+        return this.http.post<CriteriaTypeDTO>(`${this.apiUrl}/manager/criteriaType/update`, criteriaType);
+    }
 }

@@ -1,0 +1,138 @@
+<div class="page-root" style="padding: 20px;">
+
+  <!-- ===============================
+       DANH SÁCH LOẠI TIÊU CHÍ
+       =============================== -->
+  <div class="criteria-types">
+    <h2>Danh sách loại tiêu chí</h2>
+    <button class="btn" (click)="openAddTypeForm()"
+      style="margin-bottom: 15px; background:#417c9e; color:white; padding:6px 16px; border:none; border-radius:4px;">
+      Thêm loại tiêu chí
+    </button>
+
+    <div *ngFor="let type of criteriaTypes" class="criteria-type"
+      style="margin-bottom:15px; border:1px solid #ddd; padding:10px; border-radius:6px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div (click)="selectType(type)" style="cursor:pointer;">
+          <strong>{{type.criteriaTypeName}}</strong>
+          (Tổng điểm: {{totalAssignedPoints(type)}})
+        </div>
+        <button (click)="openEditTypeForm(type)"
+          style="border:none; padding:4px 10px; border-radius:4px; cursor:pointer; color:black;">
+          <i class="fa-regular fa-pen-to-square" style="background-color: transparent;"></i>
+        </button>
+      </div>
+
+      <!-- Danh sách tiêu chí con -->
+      <ul *ngIf="selectedType?.criteriaTypeId === type.criteriaTypeId" style="margin-top:10px; padding-left:20px;">
+        <li *ngFor="let c of type.criteriaEntityList; let i = index"
+          style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <span>{{c.criteriaName}} - {{c.maxScore}} điểm</span>
+          <div class="criteria-actions">
+            <button (click)="openEditCriteriaForm(c)">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button (click)="moveCriteriaUp(i)">↑</button>
+            <button (click)="moveCriteriaDown(i)">↓</button>
+          </div>
+
+        </li>
+        <button (click)="openAddCriteriaForm()"
+          style="margin-top:5px; background:#417c9e; color:white; padding:6px 10px; border:none; border-radius:4px;">Thêm
+          tiêu chí</button>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===============================
+       LOẠI TIÊU CHÍ DRAWER
+       =============================== -->
+  <!-- Drawer Loại tiêu chí -->
+  <div class="drawer" [class.show]="showTypeForm">
+    <h3>{{editingTypeId ? 'Cập nhật loại tiêu chí' : 'Thêm loại tiêu chí mới'}}</h3>
+    <form [formGroup]="typeForm" (ngSubmit)="saveType()">
+      <div class="form-group">
+        <label>Tên loại</label>
+        <input formControlName="criteriaTypeName" placeholder="Nhập tên loại tiêu chí" />
+      </div>
+      <div class="form-group" style="display:flex; gap:10px;">
+        <div style="flex:1;">
+          <label>Điểm tối đa</label>
+          <input type="number" formControlName="maxScore" min="0" />
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" formControlName="isActive" id="isActiveCheckbox" />
+          <label for="isActiveCheckbox">Active</label>
+        </div>
+      </div>
+      <div class="drawer-actions">
+        <button type="submit" class="btn-save">Lưu</button>
+        <button type="button" class="btn-cancel" (click)="cancelTypeForm()">Hủy</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Drawer Tiêu chí -->
+  <div class="drawer" [class.show]="showCriteriaForm">
+    <h3>{{editingCriteriaId ? 'Cập nhật tiêu chí' : 'Thêm tiêu chí mới'}}</h3>
+    <form [formGroup]="criteriaForm" (ngSubmit)="saveCriteria()">
+      <div class="form-group">
+        <label>Tên tiêu chí</label>
+        <input formControlName="criteriaName" placeholder="Nhập tên tiêu chí" />
+      </div>
+      <div class="form-group">
+        <label>Mô tả</label>
+        <textarea rows="4" formControlName="criteriaDetail" placeholder="Nhập mô tả tiêu chí"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Điểm</label>
+        <input type="number" formControlName="maxScore" min="0" />
+      </div>
+      <div *ngIf="editingCriteriaId" class="form-group criteria-type-group">
+        <label style="font-weight:600;">Loại tiêu chí</label>
+        <select formControlName="criteriaTypeId">
+          <option *ngFor="let type of criteriaTypes" [value]="type.criteriaTypeId" title="{{type.criteriaTypeName}}">
+            {{ type.criteriaTypeName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="drawer-actions">
+        <button type="submit" class="btn-save">Lưu</button>
+        <button type="button" class="btn-cancel" (click)="cancelCriteriaForm()">Hủy</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ===============================
+       TIÊU CHÍ DRAWER
+       =============================== -->
+  <div class="drawer" *ngIf="showCriteriaForm"
+    style="position:fixed; top:0; right:0; width:350px; height:100%; background:#f7fafd; box-shadow:-3px 0 10px rgba(0,0,0,0.1); padding:20px;">
+    <h3 style="color:#3a4a5c; margin-bottom:15px;">
+      {{editingCriteriaId ? 'Cập nhật tiêu chí' : 'Thêm tiêu chí mới'}}
+    </h3>
+    <form [formGroup]="criteriaForm" (ngSubmit)="saveCriteria()">
+      <div class="form-group" style="margin-bottom:15px;">
+        <label style="font-weight:600;">Tên tiêu chí</label>
+        <input formControlName="criteriaName" placeholder="Nhập tên tiêu chí" style="width:100%; padding:6px;" />
+      </div>
+      <div class="form-group" style="margin-bottom:15px;">
+        <label style="font-weight:600;">Mô tả</label>
+        <textarea rows="4" formControlName="criteriaDetail" placeholder="Nhập mô tả tiêu chí"
+          style="width:100%; padding:6px;"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:15px;">
+        <label style="font-weight:600;">Điểm</label>
+        <input type="number" formControlName="maxScore" min="0" style="width:100%; padding:6px;" />
+      </div>
+      <div class="drawer-actions" style="display:flex; gap:10px;">
+        <button type="submit"
+          style="background-color:#95bacf; color:white; padding:6px 16px; border:none; border-radius:4px;border: none;">Lưu</button>
+        <button type="button" (click)="cancelCriteriaForm()"
+          style="background:#eee;; padding:6px 16px; border:none; border-radius:4px; border: none;">Hủy</button>
+      </div>
+    </form>
+  </div>
+
+</div>

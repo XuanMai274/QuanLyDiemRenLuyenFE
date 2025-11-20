@@ -12,6 +12,7 @@ import { CreateBatchComponent } from './page/admin/create-batch/create-batch.com
 import { SemestersComponent } from './page/admin/semesters/semesters.component';
 import { NotificationComponent } from './page/admin/notification/notification.component';
 import { NotificationStudentComponent } from './page/student/notification/notification.component';
+import { CriteriaComponent } from './page/admin/criteria/criteria.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -35,6 +36,9 @@ export const routes: Routes = [
             },
             {
                 path: 'quan-ly-thong-bao', component: NotificationComponent
+            },
+            {
+                path: 'quan-ly-tieu-chi', component: CriteriaComponent
             }
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['MANAGER'] }
