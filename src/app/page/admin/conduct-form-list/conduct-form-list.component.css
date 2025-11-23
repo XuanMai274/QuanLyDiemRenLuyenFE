@@ -1,0 +1,60 @@
+/* Giữ nguyên style giống component danh sách */
+.container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 1100px;
+  margin: 30px auto;
+  transition: all 0.3s ease;
+}
+h2 {
+  color: #1b4965;
+  font-weight: 700;
+  border-left: 5px solid #1b4965;
+  padding-left: 10px;
+  font-size: 1.8rem;
+}
+.table {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+.table th {
+  background-color: #e9f3f9;
+  color: #1b4965;
+  text-align: center;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.table td {
+  vertical-align: middle;
+  color: #34495e;
+}
+.table-info {
+  background-color: #f3f8fb !important;
+  color: #0d3b66;
+}
+input.form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+input.form-control:focus {
+  border-color: #1b4965;
+  box-shadow: 0 0 0 0.15rem rgba(27, 73, 101, 0.25);
+}
+.btn-primary {
+  background-color: #1b4965;
+  border-color: #1b4965;
+  padding: 10px 28px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  background-color: #163b52;
+  border-color: #163b52;
+}

@@ -13,6 +13,8 @@ import { SemestersComponent } from './page/admin/semesters/semesters.component';
 import { NotificationComponent } from './page/admin/notification/notification.component';
 import { NotificationStudentComponent } from './page/student/notification/notification.component';
 import { CriteriaComponent } from './page/admin/criteria/criteria.component';
+import { ConductFormListComponent } from './page/admin/conduct-form-list/conduct-form-list.component';
+import { ConductFormDetailComponent } from './page/admin/conduct-form-detail/conduct-form-detail.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -39,7 +41,13 @@ export const routes: Routes = [
             },
             {
                 path: 'quan-ly-tieu-chi', component: CriteriaComponent
-            }
+            },
+            {
+                path: 'duyet-diem', component: ConductFormListComponent
+            },
+            {
+                path: 'conductFormDetail/:id', component: ConductFormDetailComponent
+            },
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['MANAGER'] }
     },

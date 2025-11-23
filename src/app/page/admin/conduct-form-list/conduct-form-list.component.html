@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Duyệt điểm rèn luyện</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <label class="form-label fw-bold">Học kỳ</label>
+      <select class="form-select" [(ngModel)]="selectedSemesterId" (change)="loadConductForms()">
+        <option [ngValue]="null">-- Chọn học kỳ --</option>
+        <option *ngFor="let s of semesters" [ngValue]="s.semesterId">
+          {{ s.semesterName }} ({{ s.year }})
+        </option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label fw-bold">Lớp</label>
+      <select class="form-select" [(ngModel)]="selectedClassId" (change)="loadConductForms()">
+        <option [ngValue]="null">-- Chọn lớp --</option>
+        <option *ngFor="let c of classes" [ngValue]="c.classId">
+          {{ c.className }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <table class="table table-bordered" *ngIf="conductForms.length > 0">
+    <thead class="table-primary text-center">
+      <tr>
+        <th>STT</th>
+        <th>Sinh viên</th>
+        <th>Tổng điểm SV</th>
+        <th>Tổng điểm lớp trưởng</th>
+        <th>Tổng điểm quản lý</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let form of conductForms; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ form.student?.studentId }}</td>
+        <td>{{ form.totalStudentScore }}</td>
+        <td>{{ form.classMonitorScore }}</td>
+        <td>{{ form.staffScore }}</td>
+        <td>{{ form.status }}</td>
+        <td class="text-center">
+          <button class="btn btn-primary btn-sm" (click)="viewFormDetails(form)">
+            Xem / Duyệt
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="conductForms.length === 0 && selectedClassId && selectedSemesterId">
+    <p>Không tìm thấy phiếu rèn luyện nào!</p>
+  </div>
+</div>

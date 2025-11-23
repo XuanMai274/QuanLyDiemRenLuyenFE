@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Xem / Duyệt phiếu rèn luyện</h2>
+
+  <!-- Chọn học kỳ -->
+  <div class="mb-3">
+    <label class="form-label fw-bold">Học kỳ</label>
+    <p>{{ form.semester?.semesterName}} ({{form.semester?.year}})</p>
+  </div>
+
+  <table class="table table-bordered align-middle">
+    <thead class="table-primary text-center">
+      <tr>
+        <th style="width: 30%">Nội dung và tiêu chí đánh giá</th>
+        <th style="width: 5%">Điểm tối đa</th>
+        <th style="width: 10%">Sinh viên tự đánh giá</th>
+        <th style="width: 10%">Điểm lớp trưởng</th>
+        <th style="width: 10%">Điểm quản lý</th>
+        <th style="width: 20%">Ghi chú</th>
+        <th style="width: 20%">Minh chứng</th>
+      </tr>
+      <tr class="table-info fw-bold">
+        <td>Tổng điểm</td>
+        <td></td>
+        <td class="text-center text-danger fw-bold">{{ calculateSelfTotal() }}</td>
+        <td class="text-center text-primary fw-bold">{{ calculateClassMonitorTotal() }}</td>
+        <td class="text-center text-success fw-bold">{{ calculateStaffTotal() }}</td>
+        <td colspan="2"></td>
+      </tr>
+    </thead>
+    <tbody *ngFor="let type of criteriaTypeList; let i = index">
+      <tr class="table-info fw-bold">
+        <td colspan="7">{{ i + 1 }}. {{ type.criteriaTypeName }} (Tối đa {{ type.maxScore }} điểm)</td>
+      </tr>
+
+      <tr *ngFor="let c of type.criteriaEntityList; let j = index">
+        <td>
+          {{ i + 1 }}.{{ j + 1 }} {{ c.criteriaName }}
+          <div class="text-muted small" *ngIf="c.criteriaDetail">{{ c.criteriaDetail }}</div>
+        </td>
+
+        <td class="text-center">{{ c.maxScore }}</td>
+
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="detailMap[c.criteriaId].selfScore" [readonly]="true" />
+        </td>
+
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="detailMap[c.criteriaId].classMonitorScore"
+            [readonly]="true" />
+        </td>
+
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="detailMap[c.criteriaId].staffScore" [readonly]="false"
+            min="0" [max]="c.maxScore ?? null" />
+        </td>
+
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="detailMap[c.criteriaId].comment" [readonly]="true" />
+        </td>
+
+        <td class="text-center">
+          <div *ngIf="detailMap[c.criteriaId]?.previewUrl">
+            <img [src]="detailMap[c.criteriaId].previewUrl" class="img-thumbnail preview-image"
+              (click)="openImagePreview(detailMap[c.criteriaId].previewUrl!)" />
+          </div>
+
+          <div *ngIf="!detailMap[c.criteriaId]?.previewUrl && detailMap[c.criteriaId]?.fileName"
+            class="file-display border p-2 rounded bg-light text-start small d-flex align-items-center">
+            <i class="fa-solid fa-file me-2" style="color: #6c757d; flex-shrink: 0;"></i>
+            <a [href]="getFileUrl(c.criteriaId)" target="_blank" rel="noopener"
+              class="text-decoration-none text-dark text-truncate d-block" style="max-width: 180px;"
+              [title]="detailMap[c.criteriaId].fileName">
+              {{ detailMap[c.criteriaId].fileName }}
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Overlay xem ảnh chi tiết -->
+  <div *ngIf="selectedImageUrl" class="image-overlay" (click)="closeImagePreview()">
+    <div class="image-container" (click)="$event.stopPropagation()">
+      <button class="btn btn-light btn-close-overlay" (click)="closeImagePreview()">✕</button>
+      <img [src]="selectedImageUrl" class="img-fluid" alt="Preview" />
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary px-5 py-2" (click)="submit()" [disabled]="loading">
+      <span *ngIf="!loading">Cập nhật điểm quản lý</span>
+      <span *ngIf="loading">
+        <i class="fas fa-spinner fa-spin me-2"></i>Đang gửi...
+      </span>
+    </button>
+  </div>
+</div>

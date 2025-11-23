@@ -115,6 +115,13 @@ export class ConductFormService {
 
         return this.http.post(`http://localhost:8080/conductForm/update/${conductFormId}`, formData);
     }
+
+    updateStaffScore(conductForm: ConductFormDTO): Observable<ConductFormDTO> {
+        return this.http.post<ConductFormDTO>(`http://localhost:8080/manager/conductForm/update`, conductForm);
+    }
+    getConductFormsByClassAndSemester(selectedClassId: number, selectedSemesterId: number): Observable<ConductFormDTO[]> {
+        return this.http.get<ConductFormDTO[]>(`http://localhost:8080/manager/conductForm/${selectedClassId}/${selectedSemesterId}`)
+    }
     // createConductForm(form: any): Observable<any> {
     //     const formData = new FormData();
 
