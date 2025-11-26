@@ -12,6 +12,10 @@ import { ConductFormDetailDTO } from '../../../models/conductFormDetail.model';
 import { SemesterService } from '../../../service/semesterService';
 import { SemesterDTO } from '../../../models/semester.model';
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { ElementRef, ViewChild } from '@angular/core';
+import html2pdf from 'html2pdf.js';
 @Component({
   selector: 'app-conduct-form-component',
   standalone: true,
@@ -20,6 +24,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./conduct-form-component.component.css']
 })
 export class ConductFormComponent implements OnInit {
+  onSendFeedback(arg0: ConductFormDTO) {
+    throw new Error('Method not implemented.');
+  }
 
   mode: 'create' | 'edit' | 'view' = 'create';
   form: ConductFormDTO = {
@@ -103,6 +110,7 @@ export class ConductFormComponent implements OnInit {
       next: (data) => {
         console.log('Chi tiết phiếu rèn luyện:', data.conductForm);
         this.form = data.conductForm;
+        console.log("Chi tiết phiếu rèn luyện: ", this.form)
         // load học kì 
         this.semesterId = data.conductForm.semester?.semesterId!;
         this.findAllSemesters();
@@ -436,4 +444,130 @@ export class ConductFormComponent implements OnInit {
       }
     });
   }
+  // exportPdf() {
+  //   const pdfContent = document.getElementById('pdf-content');
+  //   //const header = document.getElementById('pdf-header');
+
+  //   if (!pdfContent) return;
+
+  //   // Clone content để thao tác mà không ảnh hưởng HTML gốc
+  //   const clonedContent = pdfContent.cloneNode(true) as HTMLElement;
+  //   //const clonedHeader = header.cloneNode(true) as HTMLElement;
+
+  //   //clonedHeader.style.display = 'block';
+
+  //   // Thay select học kỳ bằng text
+  //   const selectClone = clonedContent.querySelector('select[name="semester"]') as HTMLSelectElement;
+  //   if (selectClone && this.form.semester) {
+  //     selectClone.outerHTML = `<p><strong>Học kỳ:</strong> ${this.form.semester.semesterName} (${this.form.semester.year})</p>`;
+  //   }
+
+  //   // Ẩn nút xóa trên bản PDF clone (không ảnh hưởng HTML)
+  //   clonedContent.querySelectorAll('button.btn-close-overlay').forEach(btn => {
+  //     const td = btn.closest('td');
+  //     if (!td) return;
+
+  //     const fileNameEl = td.querySelector('span');
+  //     if (fileNameEl && fileNameEl.textContent?.toLowerCase().endsWith('.pdf')) {
+  //       (btn as HTMLElement).style.display = 'none';
+  //     }
+  //   });
+
+  //   // Xóa overlay xem ảnh trong clone để PDF tĩnh
+  //   clonedContent.querySelectorAll('.image-overlay').forEach(el => el.remove());
+
+  //   // Tạo wrapper để xuất PDF
+  //   const wrapper = document.createElement('div');
+  //   //  wrapper.appendChild(clonedHeader);
+  //   wrapper.appendChild(clonedContent);
+
+  //   const opt: any = {
+  //     margin: [15, 10, 15, 10],
+  //     filename: 'phieu-ren-luyen.pdf',
+  //     image: { type: 'jpeg', quality: 0.98 },
+  //     html2canvas: { scale: 2, useCORS: true },
+  //     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+  //     pagebreak: { mode: ['css', 'legacy'] }
+  //   };
+
+  //   html2pdf().from(wrapper).set(opt).save();
+  // }
+
+  exportPdf() {
+    const pdfContent = document.getElementById('pdf-content');
+    if (!pdfContent) return;
+
+    // Clone content để thao tác mà không ảnh hưởng HTML gốc
+    const clonedContent = pdfContent.cloneNode(true) as HTMLElement;
+
+    // Thay select học kỳ bằng text
+    const selectClone = clonedContent.querySelector('select[name="semester"]') as HTMLSelectElement;
+    if (selectClone && this.form.semester) {
+      selectClone.outerHTML = `<p><strong>Học kỳ:</strong> ${this.form.semester.semesterName} (${this.form.semester.year})</p>`;
+    }
+
+    // Ẩn nút xóa trong PDF (chỉ PDF)
+    clonedContent.querySelectorAll('button.btn-close, button.btn-close-overlay').forEach(btn => {
+      (btn as HTMLElement).style.display = 'none';
+    });
+
+    // Xóa overlay xem ảnh trong clone để PDF tĩnh
+    clonedContent.querySelectorAll('.image-overlay').forEach(el => el.remove());
+
+    // Thêm CSS tạm thời cho PDF
+    const style = document.createElement('style');
+    style.innerHTML = `
+    body {
+      font-size: 12px !important;
+    }
+    table {
+      table-layout: fixed !important;
+      word-wrap: break-word !important;
+      width: 100% !important;
+    }
+    td, th {
+      padding: 4px 6px !important;
+    }
+    .file-display {
+      max-width: 180px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+    .file-display a {
+      display: block !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      max-width: 100% !important;
+      color: #000 !important;
+    }
+    .preview-image {
+      max-width: 80px !important;
+    }
+    #pdf-content {
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+    }
+  `;
+    clonedContent.prepend(style);
+
+    // Tạo wrapper để xuất PDF
+    const wrapper = document.createElement('div');
+    wrapper.appendChild(clonedContent);
+
+    const opt: any = {
+      margin: [8, 8, 8, 8], // lề trên, trái, dưới, phải nhỏ hơn để bảng rộng hơn
+      filename: 'phieu-ren-luyen.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, // Landscape để bảng rộng hơn
+      pagebreak: { mode: ['css', 'legacy'] }
+    };
+
+    html2pdf().from(wrapper).set(opt).save();
+  }
+
+
 }
+

@@ -25,7 +25,8 @@ export class ConductFormListComponent implements OnInit {
 
   selectedSemesterId: number | null = null;
   selectedClassId: number | null = null;
-
+  searchStudentId: string = '';
+  allConductForms: ConductFormDTO[] = [];
   // ===== DANH SÁCH PHIẾU RÈN LUYỆN =====
   conductForms: ConductFormDTO[] = [];
 
@@ -54,12 +55,25 @@ export class ConductFormListComponent implements OnInit {
   loadConductForms() {
     if (!this.selectedClassId || !this.selectedSemesterId) {
       this.conductForms = [];
+      this.allConductForms = [];
       return;
     }
-
     this.conductFormService
       .getConductFormsByClassAndSemester(this.selectedClassId, this.selectedSemesterId)
-      .subscribe(res => this.conductForms = res);
+      .subscribe(res => {
+        this.allConductForms = res;
+        this.filterConductForms(); // áp dụng filter nếu có
+      });
+  }
+  filterConductForms() {
+    if (!this.searchStudentId) {
+      this.conductForms = [...this.allConductForms];
+    } else {
+      const search = this.searchStudentId.toLowerCase();
+      this.conductForms = this.allConductForms.filter(f =>
+        f.student?.studentId?.toString().toLowerCase().includes(search)
+      );
+    }
   }
 
   // ===== CHUYỂN SANG CHI TIẾT =====

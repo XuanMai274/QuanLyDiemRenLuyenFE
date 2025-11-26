@@ -213,3 +213,138 @@ input.form-control:focus {
 .table-primary {
   background-color: #e3f2fd !important;
 }
+.student-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cột đều nhau */
+  gap: 12px 24px;                         /* khoảng cách giữa các khối */
+  background: #f8f9fa;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e6ea;
+}
+
+.student-info p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+}
+/* phiieu-ren-luyen.component.css */
+.pdf-content {
+  /* có thể đặt chiều rộng cố định nếu muốn định dạng PDF tốt hơn */
+  width: 800px;  /* hoặc chọn phù hợp với layout PDF */
+}
+
+.exporting-pdf .btn,
+.exporting-pdf input,
+.exporting-pdf .upload-icon,
+.exporting-pdf .btn-close,
+.exporting-pdf label {
+  display: none !important;
+}
+
+/* Nếu muốn font hiển thị đẹp hơn trong PDF */
+.pdf-content {
+  font-family: "Times New Roman", serif;
+  color: #000;
+}
+/* ẨN NÚT XÓA KHI XUẤT PDF */
+@media print {
+  .btn-close {
+    display: none !important;
+  }
+}
+
+/* Cho html2pdf */
+.pdf-export .btn-close {
+  display: none !important;
+}
+/* Bảng PDF đẹp, khoảng cách hợp lý */
+.pdf-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+
+.pdf-table th, .pdf-table td {
+  padding: 4px 6px;
+}
+
+/* Ẩn nút xóa trong PDF */
+.pdf-export .btn-close {
+  display: none !important;
+}
+
+/* Khoảng cách giữa các trang khi in/pdf */
+.pdf-export {
+  page-break-inside: avoid;
+}
+
+/* Chữ trong file minh chứng */
+.file-display {
+  font-size: 11px;
+}
+.header-container {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 17px;
+    text-align: center;
+  }
+
+  .header-left, .header-right {
+    width: 45%;
+    line-height: 1.6;
+  }
+
+  .header-left strong, .header-right strong {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+  }
+
+  .underline-left, .underline-right {
+    border-bottom: 2px solid black;
+    width: 220px;
+    margin: 8px auto 0 auto;
+  }
+
+  .underline-right { 
+    margin: 8px auto 0 auto; 
+  }
+
+  .title {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 26px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    color: #000;
+  }
+
+  /* Khi in ra PDF hoặc giấy A4 sẽ đẹp tuyệt đối */
+  @media print {
+    body { padding: 30px 50px; }
+  }
+  .file-display {
+  max-width: 140px;      /* Chiều rộng cố định */
+  overflow: hidden;       /* Ẩn phần tràn */
+  text-overflow: ellipsis; /* Hiển thị ... nếu tràn */
+  white-space: nowrap;     /* Không xuống dòng */
+}
+
+/* Link file bên trong */
+.file-display a {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}

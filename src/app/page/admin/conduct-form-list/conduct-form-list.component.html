@@ -20,6 +20,11 @@
         </option>
       </select>
     </div>
+    <div class="col-md-4">
+      <label class="form-label fw-bold">Tìm theo MSSV</label>
+      <input type="text" class="form-control" [(ngModel)]="searchStudentId" (input)="filterConductForms()"
+        placeholder="Nhập mã sinh viên">
+    </div>
   </div>
 
   <table class="table table-bordered" *ngIf="conductForms.length > 0">

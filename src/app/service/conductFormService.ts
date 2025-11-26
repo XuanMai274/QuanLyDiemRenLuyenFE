@@ -122,6 +122,9 @@ export class ConductFormService {
     getConductFormsByClassAndSemester(selectedClassId: number, selectedSemesterId: number): Observable<ConductFormDTO[]> {
         return this.http.get<ConductFormDTO[]>(`http://localhost:8080/manager/conductForm/${selectedClassId}/${selectedSemesterId}`)
     }
+    getConductFormByStudentId(studentId: number): Observable<ConductFormDTO> {
+        return this.http.get<ConductFormDTO>(`http://localhost:8080/manager/conductForm/studentId/${studentId}`)
+    }
     // createConductForm(form: any): Observable<any> {
     //     const formData = new FormData();
 

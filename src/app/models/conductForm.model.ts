@@ -1,5 +1,6 @@
 import { ConductFormDetailDTO } from "./conductFormDetail.model";
 import { SemesterDTO } from "./semester.model";
+import { StudentModel } from "./student.model";
 
 export interface ConductFormDTO {
     conductFormId?: number;
@@ -10,6 +11,6 @@ export interface ConductFormDTO {
     createAt?: string;
     updatedDate?: string;
     semester?: SemesterDTO;
-    student?: { studentId?: number };
+    student?: StudentModel;
     conductFormDetailList: ConductFormDetailDTO[];
 }
