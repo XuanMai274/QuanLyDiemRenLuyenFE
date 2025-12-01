@@ -1,0 +1,45 @@
+<div class="feedback-container">
+
+  <!-- Tiêu đề -->
+  <h2 class="feedback-title">Danh sách phản hồi</h2>
+
+  <!-- Nút lọc -->
+  <div class="filter-buttons mb-3">
+    <button style="margin-right: 10px; border-radius: 15px;" class="btn btn-outline-primary"
+      [class.active]="filter === 'all'" (click)="setFilter('all')">Tất cả</button>
+    <button style="margin-right: 10px; border-radius: 15px;" class="btn btn-outline-success"
+      [class.active]="filter === 'responded'" (click)="setFilter('responded')">Đã
+      phản hồi</button>
+    <button style="margin-right: 10px; border-radius: 15px;" class="btn btn-outline-warning"
+      [class.active]="filter === 'pending'" (click)="setFilter('pending')">Chưa
+      phản hồi</button>
+  </div>
+
+  <!-- Danh sách feedback -->
+  <div *ngFor="let fb of feedbacks" class="feedback-card">
+    <div class="feedback-header">
+      <span class="feedback-status" [ngClass]="{'responded': fb.response, 'pending': !fb.response}">
+        {{ fb.response ? 'Đã phản hồi' : 'Chưa phản hồi' }}
+      </span>
+      <span class="feedback-date">{{ fb.createAt | date:'short' }}</span>
+    </div>
+
+    <div class="feedback-content">
+      <p>{{ fb.content }}</p>
+      <img *ngIf="fb.image" [src]="fb.image" class="feedback-image">
+    </div>
+
+    <div *ngIf="fb.responseContent" class="feedback-response">
+      <strong>Phản hồi:</strong>
+      <p>{{ fb.responseContent }}</p>
+    </div>
+  </div>
+
+  <!-- Phân trang -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 0">&laquo; Trước</button>
+    <span>Trang {{ currentPage + 1 }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage + 1 >= totalPages">Tiếp &raquo;</button>
+  </div>
+
+</div>

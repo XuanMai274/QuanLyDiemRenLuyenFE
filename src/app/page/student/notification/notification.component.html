@@ -2,19 +2,28 @@
 
   <!-- Header -->
   <div class="header">
-    <h2>📢 Danh sách thông báo</h2>
+    <h2>Danh sách thông báo</h2>
+
+    <!-- Bộ lọc -->
+    <div class="filter-buttons">
+      <button (click)="setFilter('newest')" [class.active]="filterType==='newest'">Thông báo mới nhất</button>
+      <button (click)="setFilter('oldest')" [class.active]="filterType==='oldest'">Thông báo cũ nhất</button>
+      <button (click)="setFilter('all')" [class.active]="filterType==='all'">Tất cả</button>
+    </div>
   </div>
 
   <!-- Danh sách thông báo -->
   <div class="list-container">
-    <div class="notification-card" *ngFor="let n of notifications">
+    <div class="notification-card" *ngFor="let n of filteredNotifications">
 
       <div class="card-content">
         <h3>{{ n.title }}</h3>
         <p class="preview-text" [innerHTML]="n.content | slice:0:150"></p>
         <div class="meta">
           <span>Loại: {{ n.type || 'Chưa phân loại' }}</span> |
-          <span>Trạng thái: {{ n.status }}</span>
+          <span style="margin-right: 10px;">Trạng thái: {{ n.status }}</span>
+          <span *ngIf="n.read" class="badge read">Đã đọc</span>
+          <span *ngIf="!n.read" class="badge unread">Chưa đọc</span>
         </div>
         <div class="date">
           Tạo lúc: {{ n.createAt | date:'dd/MM/yyyy HH:mm' }}
@@ -25,6 +34,15 @@
         <button class="view-btn" (click)="openDetail(n)">Xem</button>
       </div>
     </div>
+  </div>
+
+  <!-- Phân trang -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(currentPage-1)" [disabled]="currentPage===1">Prev</button>
+    <span *ngFor="let p of [].constructor(totalPages); let i = index">
+      <button (click)="changePage(i+1)" [class.active]="currentPage===i+1">{{ i+1 }}</button>
+    </span>
+    <button (click)="changePage(currentPage+1)" [disabled]="currentPage===totalPages">Next</button>
   </div>
 
   <!-- Popup xem chi tiết -->

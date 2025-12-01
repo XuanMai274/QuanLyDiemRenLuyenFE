@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { ConductFormDTO } from '../models/conductForm.model';
+import { StudentVsClassDTO } from '../models/student_cvs_class';
 
 @Injectable({ providedIn: 'root' })
 export class ConductFormService {
@@ -125,6 +126,21 @@ export class ConductFormService {
     getConductFormByStudentId(studentId: number): Observable<ConductFormDTO> {
         return this.http.get<ConductFormDTO>(`http://localhost:8080/manager/conductForm/studentId/${studentId}`)
     }
+    getLatestConductForm(): Observable<ConductFormDTO> {
+        return this.http.get<ConductFormDTO>(`http://localhost:8080/student/dashboard/conductForm`)
+    }
+    getAllConductFormsByStudentId(): Observable<ConductFormDTO[]> {
+        return this.http.get<ConductFormDTO[]>(`http://localhost:8080/student/dashboard/conductForms`)
+    }
+    // conductFormService.ts
+    compareStudentVsClass() {
+        return this.http.get<StudentVsClassDTO[]>(`http://localhost:8080/conductForm/compare/student`);
+    }
+
+    compareLatestSemester(studentId: number) {
+        return this.http.get<StudentVsClassDTO>(`http://localhost:8080/conductForm/compare/student/latest`);
+    }
+
     // createConductForm(form: any): Observable<any> {
     //     const formData = new FormData();
 

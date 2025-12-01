@@ -348,3 +348,111 @@ input.form-control:focus {
   white-space: nowrap;
   max-width: 100%;
 }
+/* =============================== */
+/* NỀN MỜ POPUP */
+/* =============================== */
+.modal-overlay-fb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeInFb 0.25s ease;
+}
+
+/* =============================== */
+/* HỘP POPUP */
+/* =============================== */
+.modal-box-fb {
+  width: 500px;
+  max-width: 90%;
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0px 12px 40px rgba(0,0,0,0.25);
+  animation: slideUpFb 0.3s ease;
+}
+
+/* Animation mở popup */
+@keyframes fadeInFb {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpFb {
+  from {
+    transform: translateY(35px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* =============================== */
+/* LABEL UPLOAD ẢNH */
+/* =============================== */
+.upload-label-fb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f2f7ff;
+  padding: 16px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+  user-select: none;
+}
+
+.upload-label-fb i {
+  font-size: 22px;
+}
+
+.upload-label-fb:hover {
+  background: #e8f1ff;
+  border-color: #0a58ca;
+}
+
+/* =============================== */
+/* PREVIEW ẢNH */
+/* =============================== */
+.preview-wrapper-fb {
+  position: relative;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.preview-img-fb {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid #d7d7d7;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Nút xoá ảnh */
+.preview-close-fb {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  opacity: 0.9;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.25);
+}
+
+/* =============================== */
+/* BUTTON */
+/* =============================== */
+
+

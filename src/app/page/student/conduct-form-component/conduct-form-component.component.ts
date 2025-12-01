@@ -16,6 +16,8 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ElementRef, ViewChild } from '@angular/core';
 import html2pdf from 'html2pdf.js';
+import { FeedbackDTO, FeedbackModel } from '../../../models/feedback.model';
+import { FeedbackService } from '../../../service/feedbackService';
 @Component({
   selector: 'app-conduct-form-component',
   standalone: true,
@@ -24,9 +26,7 @@ import html2pdf from 'html2pdf.js';
   styleUrls: ['./conduct-form-component.component.css']
 })
 export class ConductFormComponent implements OnInit {
-  onSendFeedback(arg0: ConductFormDTO) {
-    throw new Error('Method not implemented.');
-  }
+
 
   mode: 'create' | 'edit' | 'view' = 'create';
   form: ConductFormDTO = {
@@ -50,7 +50,8 @@ export class ConductFormComponent implements OnInit {
     private criteriaService: CriteriaService,
     private conductFormService: ConductFormService,
     private criteriaTypeService: CriteriaTypeService,
-    private semesterService: SemesterService
+    private semesterService: SemesterService,
+    private feedbackService: FeedbackService
   ) { }
 
   ngOnInit(): void {
@@ -568,6 +569,77 @@ export class ConductFormComponent implements OnInit {
     html2pdf().from(wrapper).set(opt).save();
   }
 
+
+  //phần gui feedback
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+  showForm = false;
+
+  content: string = "";
+  selectedFile: File | null = null;
+  previewUrl: string | null = null;
+
+  openForm() {
+    this.showForm = true;
+  }
+
+  cancel() {
+    this.showForm = false;
+    this.resetForm();
+  }
+
+  chooseFile() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelectedFb(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      this.selectedFile = event.target.files[0];
+
+      // tạo preview
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewUrl = e.target.result;
+      };
+      if (this.selectedFile) {
+        reader.readAsDataURL(this.selectedFile);
+      }
+    }
+  }
+
+  removeImagefb() {
+    this.selectedFile = null;
+    this.previewUrl = null;
+  }
+
+  submitFeedback() {
+    const conductForm: ConductFormDTO = {
+      conductFormId: this.form.conductFormId,
+      status: this.form.status,
+      conductFormDetailList: [] // list nested
+    };
+
+    this.feedbackService.createFeedback(
+      this.content,
+      conductForm,
+      this.selectedFile
+    ).subscribe({
+      next: res => {
+        alert("Gửi phản hồi thành công!");
+        this.resetForm();
+      },
+      error: err => {
+        console.error(err);
+        alert("Lỗi gửi phản hồi!");
+      }
+    });
+  }
+
+  resetForm() {
+    this.content = "";
+    this.selectedFile = null;
+    this.previewUrl = null;
+  }
 
 }
 

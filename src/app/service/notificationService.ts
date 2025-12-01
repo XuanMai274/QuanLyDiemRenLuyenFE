@@ -18,4 +18,7 @@ export class NotificationService {
     getAllStudentNotifications(): Observable<NotificationModel[]> {
         return this.http.get<NotificationModel[]>(`${this.apiUrl}/notification/getAll`);
     }
+    markAsRead(notificationId: number) {
+        return this.http.post(`${this.apiUrl}/student/notification/read/${notificationId}`, {});
+    }
 }

@@ -15,6 +15,7 @@ import { NotificationStudentComponent } from './page/student/notification/notifi
 import { CriteriaComponent } from './page/admin/criteria/criteria.component';
 import { ConductFormListComponent } from './page/admin/conduct-form-list/conduct-form-list.component';
 import { ConductFormDetailComponent } from './page/admin/conduct-form-detail/conduct-form-detail.component';
+import { FeedbackComponent } from './page/student/feedback/feedback.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -70,6 +71,9 @@ export const routes: Routes = [
             },
             {
                 path: 'thong-bao', component: NotificationStudentComponent
+            },
+            {
+                path: 'ho-tro', component: FeedbackComponent
             }
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['STUDENT', 'CLASS_MONITOR'] }

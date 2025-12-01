@@ -167,9 +167,48 @@
       </span>
     </button>
     <!-- Nút Gửi phản hồi khi đã duyệt -->
-    <button *ngIf="form.status === 'APPROVED'" class="btn btn-primary px-5 py-2" (click)="onSendFeedback(form)"
+    <button *ngIf="form.status === 'APPROVED'" class="btn btn-primary px-5 py-2" (click)="openForm()"
       style="margin-left: 20px;">
       <i class="bi bi-chat-dots me-1"></i> Gửi phản hồi
     </button>
   </div>
-</div>
+
+
+
+  <!-- Form phản hồi -->
+  <div *ngIf="showForm" class="modal-overlay-fb">
+
+    <div class="modal-box-fb">
+
+      <h4 class="mb-3">Thêm phản hồi</h4>
+
+      <!-- CONTENT -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Nội dung phản hồi</label>
+        <textarea class="form-control" rows="3" [(ngModel)]="content"></textarea>
+      </div>
+
+      <!-- UPLOAD FILE -->
+      <div class="mb-3">
+        <label for="fileUpload" class="upload-label-fb">
+          <i class="fa-regular fa-image"></i> Chọn ảnh
+        </label>
+
+        <input type="file" id="fileUpload" (change)="onFileSelectedFb($event)" hidden />
+
+        <div *ngIf="previewUrl" class="preview-wrapper-fb">
+          <img [src]="previewUrl" class="preview-img-fb">
+          <button class="btn-close preview-close-fb" (click)="removeImagefb()"></button>
+        </div>
+
+        <input type="file" #fileInput hidden (change)="onFileSelectedFb($event)">
+      </div>
+
+      <div class="text-end">
+        <button class="btn btn-success" (click)="submitFeedback()">Gửi phản hồi</button>
+        <button class="btn btn-secondary ms-2" (click)="cancel()">Hủy</button>
+      </div>
+
+    </div>
+
+  </div>

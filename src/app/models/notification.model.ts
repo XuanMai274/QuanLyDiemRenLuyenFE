@@ -11,4 +11,5 @@ export interface NotificationModel {
     createAt: Date;
     updateAt: Date;
     managerEntity: ManagerModel;
+    read: boolean;
 }

@@ -1,4 +1,73 @@
-<p>student-dashboard works!</p>
-<div class="test-container">
-  <button class="btn-test" (click)="onTestClick()">Gọi API thuộc student</button>
+<div class="dashboard-container" *ngIf="conductForm">
+
+  <div class="summary-cards">
+
+    <!-- Tổng điểm sinh viên -->
+    <div class="card summary-card total-score">
+      <div class="card-header">
+        <i class="fas fa-user-graduate"></i> Tổng điểm sinh viên
+      </div>
+      <div class="card-body">
+        <span class="score">{{ conductForm.totalStudentScore }}</span>
+        <span class="grade" [ngClass]="{'approved': conductForm.status === 'APPROVED'}">
+          {{ conductForm.status === 'APPROVED' ? getGrade(conductForm.totalStudentScore || 0) : 'Đang chờ' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Điểm đánh giá của khoa -->
+    <div class="card summary-card faculty-score">
+      <div class="card-header">
+        <i class="fas fa-university"></i> Điểm khoa
+      </div>
+      <div class="card-body">
+        <span class="score"
+          [ngClass]="{'completed': (conductForm.staffScore ?? 0) > 0, 'pending': (conductForm.staffScore ?? 0) === 0}">
+          {{ (conductForm.staffScore ?? 0) > 0 ? conductForm.staffScore : 'Đang chờ' }}
+        </span>
+        <span class="grade" [ngClass]="{'approved': (conductForm.staffScore ?? 0) > 0}">
+          {{ (conductForm.staffScore ?? 0) > 0 ? getGrade(conductForm.staffScore ?? 0) : '' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Trạng thái phiếu -->
+    <div class="card summary-card status-card">
+      <div class="card-header">
+        <i class="fas fa-clipboard-check"></i>Trạng thái phiếu
+      </div>
+      <div class="card-body">
+        <span class="status-badge" [ngClass]="(conductForm.status ?? '').toLowerCase()">
+          {{ conductForm.status ?? 'PENDING' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Ngày tạo / cập nhật -->
+    <div class="card summary-card date-card">
+      <div class="card-header">
+        <i class="fas fa-calendar-alt"></i> Ngày tạo / cập nhật
+      </div>
+      <div class="card-body">
+        <p><strong>Tạo:</strong> {{ conductForm.createAt | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Cập nhật:</strong> {{ conductForm.updatedDate | date:'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="charts-row">
+
+  <!-- Biểu đồ 1 -->
+  <div class="chart-card">
+    <h3 class="text-center mb-3">Thống kê điểm rèn luyện theo học kỳ</h3>
+    <canvas #barChart></canvas>
+  </div>
+
+  <!-- Biểu đồ 2 -->
+  <div class="chart-card">
+    <h3 class="text-center mb-3">So sánh điểm cá nhân với lớp</h3>
+    <canvas #compareChart></canvas>
+  </div>
+
 </div>

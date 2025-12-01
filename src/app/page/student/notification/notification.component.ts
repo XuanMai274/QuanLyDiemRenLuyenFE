@@ -15,8 +15,17 @@ import { DatePipe } from '@angular/common';
 export class NotificationStudentComponent implements OnInit {
 
   notifications: NotificationModel[] = [];
+  filteredNotifications: NotificationModel[] = [];
   showDetail: boolean = false;
   selected: NotificationModel | null = null;
+
+  // Pagination
+  currentPage = 1;
+  pageSize = 5;
+  totalPages = 1;
+
+  // Filter
+  filterType: 'newest' | 'oldest' | 'all' = 'newest';
 
   constructor(private notificationService: NotificationService) { }
 
@@ -28,16 +37,49 @@ export class NotificationStudentComponent implements OnInit {
   getAllNotifications(): void {
     this.notificationService.getAllStudentNotifications().subscribe({
       next: (res: NotificationModel[]) => {
-        // Chuyển ngày sang định dạng dễ đọc
+        // Sắp xếp mặc định: mới nhất
         this.notifications = res.map(n => ({
           ...n,
           readableStartDate: this.formatDate(n.startDate),
           readableEndDate: this.formatDate(n.endDate),
           readableCreateAt: this.formatDate(n.createAt)
         }));
+        this.applyFilter(); // áp dụng filter và phân trang
       },
       error: (err) => console.error('Error fetching notifications:', err)
     });
+  }
+
+  /** Áp dụng filter và phân trang */
+  applyFilter(): void {
+    let temp = [...this.notifications];
+
+    if (this.filterType === 'newest') {
+      temp.sort((a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime());
+      temp = temp.slice(0, 10);
+    } else if (this.filterType === 'oldest') {
+      temp.sort((a, b) => new Date(a.createAt).getTime() - new Date(b.createAt).getTime());
+      temp = temp.slice(0, 10);
+    }
+
+    this.totalPages = Math.ceil(temp.length / this.pageSize);
+    this.currentPage = 1;
+    this.filteredNotifications = temp.slice(0, this.pageSize);
+  }
+
+  /** Chuyển trang */
+  changePage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.filteredNotifications = this.notifications.slice(start, end);
+  }
+
+  /** Thay đổi filter */
+  setFilter(type: 'newest' | 'oldest' | 'all'): void {
+    this.filterType = type;
+    this.applyFilter();
   }
 
   /** Chuyển Date/ISOString sang định dạng hiển thị */
@@ -59,13 +101,23 @@ export class NotificationStudentComponent implements OnInit {
       readableStartDate: this.formatDate(item.startDate),
       readableEndDate: this.formatDate(item.endDate),
       readableCreateAt: this.formatDate(item.createAt)
-    } as any; // thêm thuộc tính đọc dễ nhìn
+    } as any;
+
+    // Nếu chưa đọc, gọi API mark-as-read
+    if (!item.read) {
+      this.notificationService.markAsRead(item.notificationId).subscribe(() => {
+        item.read = true; // cập nhật trạng thái trên UI
+      });
+    }
+
     this.showDetail = true;
   }
+
 
   /** Đóng popup */
   closeDetail(): void {
     this.showDetail = false;
     this.selected = null;
   }
+
 }
