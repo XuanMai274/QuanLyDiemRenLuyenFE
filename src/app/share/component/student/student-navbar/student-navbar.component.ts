@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../../../service/userService';
 import { StudentModel } from '../../../../models/student.model';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-student-navbar',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './student-navbar.component.html',
   styleUrl: './student-navbar.component.css'
 })

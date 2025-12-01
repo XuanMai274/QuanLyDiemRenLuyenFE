@@ -16,16 +16,16 @@
 
   <!-- Menu -->
   <div class="menu d-flex align-items-center">
-    <a routerLink="/" class="menu-item">
-      <i class="fa fa-home"></i> Trang chủ
-    </a>
-    <a routerLink="/news" class="menu-item position-relative">
-      <i class="fa fa-bell"></i> Tin tức
-      <span class="badge">10</span>
+    <a [routerLink]="'/student/home'" class="menu-item position-relative">
+      <i class="fa-regular fa-house"></i> Trang chủ
+      <!-- <span class="badge">10</span> -->
     </a>
     <div class="user d-flex align-items-center ms-3">
       <i class="fa fa-user-circle"></i>
       <span class="ms-1">{{currentStudent?.fullname}}</span>
     </div>
+    <a [routerLink]="'/login'" class="menu-item" style="cursor: pointer;">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+    </a>
   </div>
 </header>

@@ -42,6 +42,12 @@ export class FeedbackService {
         return this.http.post<FeedbackDTO>(`${this.apiUrl}/student/feedback/update`, feedback);
     }
     getFeedbacks(): Observable<FeedbackDTO[]> {
-    return this.http.get<FeedbackDTO[]>(`${this.apiUrl}/student/feedback/findAll`);
-  }
+        return this.http.get<FeedbackDTO[]>(`${this.apiUrl}/student/feedback/findAll`);
+    }
+    getAllFeedbacksAdmin(): Observable<FeedbackDTO[]> {
+        return this.http.get<FeedbackDTO[]>(`${this.apiUrl}/manager/feedback/findAll`);
+    }
+    updateResponseFeedback(feedback: FeedbackDTO): Observable<FeedbackDTO> {
+        return this.http.post<FeedbackDTO>(`${this.apiUrl}/manager/feedback/update`, feedback);
+    }
 }

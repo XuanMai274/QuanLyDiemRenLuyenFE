@@ -26,11 +26,13 @@ export class CreateBatchComponent {
   }
   getAllOpenedSemesters() {
     this.semesterService.getAllOpenedSemesters().subscribe((data) => {
+      console.log("Danh sách học kì đã mở", data);
       this.openedSemesters = data;
     });
   }
   getOpenSemesters() {
     this.semesterService.findByIsOpenTrue().subscribe((data) => {
+      console.log("Học kì đang mở", data);
       this.openSemesters = data;
     });
   }

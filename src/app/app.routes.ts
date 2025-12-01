@@ -16,6 +16,7 @@ import { CriteriaComponent } from './page/admin/criteria/criteria.component';
 import { ConductFormListComponent } from './page/admin/conduct-form-list/conduct-form-list.component';
 import { ConductFormDetailComponent } from './page/admin/conduct-form-detail/conduct-form-detail.component';
 import { FeedbackComponent } from './page/student/feedback/feedback.component';
+import { ResponseFeedbackComponent } from './page/admin/response-feedback/response-feedback.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -49,6 +50,9 @@ export const routes: Routes = [
             {
                 path: 'conductFormDetail/:id', component: ConductFormDetailComponent
             },
+            {
+                path: 'phan-hoi', component: ResponseFeedbackComponent
+            }
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['MANAGER'] }
     },
