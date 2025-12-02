@@ -17,6 +17,7 @@ import { ConductFormListComponent } from './page/admin/conduct-form-list/conduct
 import { ConductFormDetailComponent } from './page/admin/conduct-form-detail/conduct-form-detail.component';
 import { FeedbackComponent } from './page/student/feedback/feedback.component';
 import { ResponseFeedbackComponent } from './page/admin/response-feedback/response-feedback.component';
+import { AverageClassScoreComponent } from './page/admin/average-class-score/average-class-score.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -52,7 +53,11 @@ export const routes: Routes = [
             },
             {
                 path: 'phan-hoi', component: ResponseFeedbackComponent
-            }
+            },
+            {
+                path: 'thi-dua', component: AverageClassScoreComponent
+            },
+
         ],
         canActivate: [AuthGuard], data: { expectedRole: ['MANAGER'] }
     },

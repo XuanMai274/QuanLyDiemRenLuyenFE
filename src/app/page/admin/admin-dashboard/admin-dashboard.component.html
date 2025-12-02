@@ -1,4 +1,112 @@
-<p>admin-dashboard works!</p>
-<div class="test-container">
-  <button class="btn-test" (click)="onTestClick()">Gọi API thuộc admin</button>
+<div class="container py-4">
+
+  <h2 class="fw-bold mb-4">Thống Kê Tình Trạng Nộp Phiếu Rèn Luyện</h2>
+
+  <!-- FILTER -->
+  <div class="card p-4 shadow-sm mb-4">
+    <div class="row g-3">
+
+      <!-- Học kỳ -->
+      <div class="col-md-4">
+        <label class="form-label fw-semibold">Học kỳ</label>
+        <select class="form-select" [(ngModel)]="selectedSemester" (change)="loadStatistics()">
+          <option [ngValue]="null">-- Chọn học kỳ --</option>
+          <option *ngFor="let s of semesters" [ngValue]="s.semesterId">{{ s.semesterName }}</option>
+        </select>
+      </div>
+
+      <!-- Khoa -->
+      <div class="col-md-4">
+        <label class="form-label fw-semibold">Khoa</label>
+        <select class="form-select" [(ngModel)]="selectedFaculty" (change)="onSemesterOrFacultyChange()">
+          <option [ngValue]="null">-- Chọn khoa --</option>
+          <option *ngFor="let f of faculties" [ngValue]="f.facultyId">{{ f.facultyName }}</option>
+        </select>
+      </div>
+
+      <!-- Lớp -->
+      <div class="col-md-4">
+        <label class="form-label fw-semibold">Lớp</label>
+        <select class="form-select" [(ngModel)]="selectedClass" (change)="loadStatistics()">
+          <option [ngValue]="null">-- Chọn lớp --</option>
+          <option *ngFor="let c of classes" [ngValue]="c.classId">{{ c.className }}</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Thống kê -->
+  <div *ngIf="submitted.length || notSubmitted.length">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="stat-card shadow-sm p-3 text-center">
+          <h6 class="fw-bold text-success">Đã nộp phiếu</h6>
+          <h2>{{ submitted.length }}</h2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-card shadow-sm p-3 text-center">
+          <h6 class="fw-bold text-danger">Chưa nộp phiếu</h6>
+          <h2>{{ notSubmitted.length }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="fw-semibold text-success mb-2">Danh sách sinh viên đã nộp</h5>
+        <div class="d-flex justify-content-end mb-2">
+          <button class="btn btn-success me-2" (click)="exportExcel(submitted, 'Danh_sach_da_nop.xlsx')">
+            Xuất Excel
+          </button>
+        </div>
+        <table class="table table-bordered table-striped">
+          <thead class="table-success">
+            <tr>
+              <th>STT</th>
+              <th>Họ tên</th>
+              <th>Lớp</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let st of submitted; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ st.fullname }}</td>
+              <td>{{ st.classDTO?.className }}</td>
+              <td>{{ st.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        <h5 class="fw-semibold text-danger mb-2">Danh sách sinh viên chưa nộp</h5>
+        <div class="d-flex justify-content-end mb-2 mt-4">
+          <button class="btn btn-danger me-2" (click)="exportExcel(notSubmitted, 'Danh_sach_chua_nop.xlsx')">
+            Xuất Excel
+          </button>
+        </div>
+        <table class="table table-bordered table-striped">
+          <thead class="table-danger">
+            <tr>
+              <th>STT</th>
+              <th>Họ tên</th>
+              <th>Lớp</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let st of notSubmitted; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ st.fullname }}</td>
+              <td>{{ st.classDTO?.className }}</td>
+              <td>{{ st.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

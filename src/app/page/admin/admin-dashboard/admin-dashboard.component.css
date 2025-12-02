@@ -1,0 +1,117 @@
+/* ================= CONTAINER ================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ================= HEADINGS ================= */
+h2 {
+  color: #2d719a;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ================= FILTER CARD ================= */
+.card {
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* ================= FORM ELEMENTS ================= */
+.form-label {
+  font-weight: 600;
+  color: #2d719a;
+}
+
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.form-select:focus {
+  border-color: #2d719a;
+  box-shadow: 0 0 0 2px rgba(45,113,154,0.2);
+}
+
+/* ================= STAT CARDS ================= */
+.stat-card {
+  border-radius: 12px;
+  transition: transform 0.2s;
+  cursor: default;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.stat-card h6 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d719a;
+}
+
+/* ================= TABLES ================= */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.table thead {
+  background-color: #2d719a;
+  color: #fff;
+}
+
+.table thead th {
+  font-weight: 600;
+  text-align: center;
+  border: none;
+}
+
+.table tbody td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f7f9fb;
+}
+
+.table-bordered {
+  border: none;
+}
+
+.table-bordered td, .table-bordered th {
+  border: none;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .stat-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-card h6 {
+    font-size: 0.9rem;
+  }
+  
+  .table tbody td, .table thead th {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}

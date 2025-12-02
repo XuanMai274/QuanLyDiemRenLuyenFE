@@ -1,0 +1,158 @@
+/* =======================
+   Container tổng thể
+======================= */
+.container {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  padding: 2rem;
+}
+
+/* Tiêu đề chính */
+h2.fw-bold {
+  color: #2d3e50;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+h2.fw-bold::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #95bacf;
+  border-radius: 2px;
+  margin-top: 8px;
+}
+
+/* Card chọn khoa */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* Label input */
+label.form-label {
+  font-weight: 600;
+  color: #2d3e50;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Select */
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.form-select:focus {
+  border-color: #95bacf;
+  box-shadow: 0 0 5px rgba(149, 186, 207, 0.5);
+  outline: none;
+}
+
+/* =======================
+   Biểu đồ và bảng cùng dòng
+======================= */
+.chart-table-wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Biểu đồ */
+.chart-container {
+  flex: 1 1 400px; /* Chiều rộng tối thiểu 400px, chiếm 1 phần */
+  max-width: 550px; /* Không kéo dãn quá */
+  background: #f5f8fa;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+canvas {
+  border-radius: 12px;
+  width: 100% !important;
+  height: 300px !important; /* chiều cao vừa phải */
+}
+
+/* Bảng danh sách lớp */
+.table-wrapper {
+  flex: 1 1 400px;
+  max-width: 600px;
+  overflow-x: auto;
+}
+
+table.table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+table thead {
+  position: sticky;
+  top: 0;
+  background: #95bacf;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 10;
+}
+
+table tbody tr:hover {
+  background: #eaf3f8;
+}
+
+table td, table th {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Tiêu đề phụ */
+h5 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2d3e50;
+  margin-bottom: 1rem;
+}
+
+/* =======================
+   Responsive
+======================= */
+@media (max-width: 992px) {
+  .chart-table-wrapper {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .chart-container, .table-wrapper {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  table td, table th {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+  h2.fw-bold {
+    font-size: 1.5rem;
+  }
+}

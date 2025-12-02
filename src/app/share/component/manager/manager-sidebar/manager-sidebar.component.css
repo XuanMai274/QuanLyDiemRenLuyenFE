@@ -115,3 +115,28 @@
 .has-submenu.open .arrow {
   transform: rotate(180deg);
 }
+.profile-box {
+  text-align: center;
+  padding: 20px 10px;
+  border-bottom: 1px solid #fff3;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.name {
+  margin: 0;
+  font-size: 16px;
+  color: #fff;
+}
+
+.email {
+  margin: 0;
+  font-size: 13px;
+  color: #ddd;
+}
