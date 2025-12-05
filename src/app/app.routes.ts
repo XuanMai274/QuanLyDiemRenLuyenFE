@@ -18,6 +18,7 @@ import { ConductFormDetailComponent } from './page/admin/conduct-form-detail/con
 import { FeedbackComponent } from './page/student/feedback/feedback.component';
 import { ResponseFeedbackComponent } from './page/admin/response-feedback/response-feedback.component';
 import { AverageClassScoreComponent } from './page/admin/average-class-score/average-class-score.component';
+import { DashboardComponent } from './page/admin/dashboard/dashboard.component';
 export const routes: Routes = [
     {
         path: 'login',
@@ -31,7 +32,7 @@ export const routes: Routes = [
         component: ManagerComponent,
         children: [
             {
-                path: 'home', component: AdminDashboardComponent
+                path: 'home', component: DashboardComponent
             },
             {
                 path: 'tao-dot-ren-luyen', component: CreateBatchComponent
@@ -56,6 +57,9 @@ export const routes: Routes = [
             },
             {
                 path: 'thi-dua', component: AverageClassScoreComponent
+            },
+            {
+                path: 'tien-do', component: AdminDashboardComponent
             },
 
         ],

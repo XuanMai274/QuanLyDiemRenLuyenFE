@@ -1,36 +1,68 @@
-<div class="semester-container">
+<div class="container">
 
-  <!-- Header -->
   <div class="header">
     <h2>Quản lý học kỳ</h2>
-    <button class="btn-primary" (click)="openAddSemester()">+ Thêm học kỳ</button>
+
+    <button class="btn-add" (click)="openPopup('add')">
+      <i class="fa-solid fa-circle-plus"></i>
+    </button>
   </div>
 
-  <!-- Danh sách học kỳ -->
-  <div class="semester-list">
-    <div class="semester-card" *ngFor="let item of semesters">
+  <!-- ====================== POPUP FORM ====================== -->
+  <div class="popup-overlay" *ngIf="showPopup">
+    <div class="popup">
 
-      <!-- Thông tin học kỳ -->
-      <div class="semester-info">
-        <h3>{{ item.semesterName }}</h3>
-        <p><b>Năm học:</b> {{ item.year }}</p>
-        <p><b>Bắt đầu:</b> {{ item.startDate  }}</p>
-        <p><b>Kết thúc:</b> {{ item.endDate  }}</p>
-        <p><b>Đánh giá:</b>
-          {{ item.evaluationStartDate }} →
-          {{ item.evaluationEndDate }}
-        </p>
-        <span class="badge" [class.open]="item.isOpen">
-          {{ item.isOpen ? 'Đang mở' : 'Đã đóng' }}
-        </span>
-      </div>
+      <h3>{{ popupMode === 'add' ? 'Thêm học kỳ' : 'Sửa học kỳ' }}</h3>
 
-      <!-- Nút hành động -->
-      <div class="actions">
-        <button class="btn-edit" (click)="openEditSemester(item)">Sửa</button>
+      <form [formGroup]="form">
+        <label>Tên học kỳ</label>
+        <input type="text" formControlName="semesterName">
+
+        <label>Năm học</label>
+        <input type="text" formControlName="year">
+
+        <label>Ngày bắt đầu</label>
+        <input type="datetime-local" formControlName="startDate">
+
+        <label>Ngày kết thúc</label>
+        <input type="datetime-local" formControlName="endDate">
+      </form>
+
+      <div class="popup-actions">
+        <button class="btn-close" (click)="closePopup()">Đóng</button>
+        <button class="btn-save" (click)="save()">Lưu</button>
       </div>
 
     </div>
+  </div>
+
+  <!-- ====================== LIST SEMESTER ====================== -->
+  <div class="card-grid">
+    <div class="semester-card" *ngFor="let sem of pagedItems">
+
+      <div class="title">Học kỳ {{ sem.semesterName }}</div>
+
+      <div class="info">
+        <p><strong>Năm học:</strong> {{ sem.year }}</p>
+        <p><strong>Bắt đầu:</strong> {{ sem.startDate | date:'yyyy-MM-dd HH:mm' }}</p>
+        <p><strong>Kết thúc:</strong> {{ sem.endDate | date:'yyyy-MM-dd HH:mm' }}</p>
+      </div>
+
+      <div class="actions">
+        <button class="btn-edit" (click)="openPopup('edit', sem)"><i class="fa-regular fa-pen-to-square"></i></button>
+        <!-- <button class="btn-status" disabled>{{ sem.isOpen ? 'Đang mở' : 'Đã đóng' }}</button> -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====================== PAGINATION ====================== -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 1">«</button>
+
+    <span>Trang {{ page }} / {{ totalPages }}</span>
+
+    <button (click)="nextPage()" [disabled]="page === totalPages">»</button>
   </div>
 
 </div>

@@ -27,7 +27,7 @@ export class SemesterService {
     }
     //hàm cập nhật học kì
     updateSemester(semester: SemesterDTO): Observable<SemesterDTO> {
-        return this.http.put<SemesterDTO>(`${this.apiUrl}manager/semester/update/`, semester);
+        return this.http.post<SemesterDTO>(`${this.apiUrl}manager/semester/update`, semester);
     }
     // hàm thêm mới học kì
     addSemester(semester: SemesterDTO): Observable<SemesterDTO> {

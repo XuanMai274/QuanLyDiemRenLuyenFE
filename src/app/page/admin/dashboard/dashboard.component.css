@@ -1,0 +1,80 @@
+.dashboard-wrapper {
+  padding: 25px;
+  background: #f3f6fc;
+}
+
+/* ================= TOP CARDS ================= */
+.top-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card-box {
+  flex: 1;
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.text-group .title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2c3455;
+}
+
+.text-group .sub {
+  color: #6c738b;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.detail {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 13px;
+  color: #0063df;
+  text-decoration: none;
+}
+
+.icon-box {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+}
+
+/* Icon background colors */
+.bg-purple { background: #6f42c1; }
+.bg-red { background: #dc3545; }
+.bg-orange { background: #fd7e14; }
+.bg-pink { background: #e83e8c; }
+
+/* ================= BOTTOM IMAGE BOXES ================= */
+.bottom-section {
+  display: flex;
+  gap: 20px;
+}
+
+.image-box {
+  flex: 1;
+  height: 350px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
