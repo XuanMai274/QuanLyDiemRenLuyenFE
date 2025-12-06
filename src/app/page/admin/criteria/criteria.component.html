@@ -15,7 +15,8 @@
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <div (click)="selectType(type)" style="cursor:pointer;">
           <strong>{{type.criteriaTypeName}}</strong>
-          (Tổng điểm: {{totalAssignedPoints(type)}})
+          (Tổng điểm: {{type.maxScore}})
+          <!-- (Tổng điểm: ) {{totalAssignedPoints(type)}} -->
         </div>
         <button (click)="openEditTypeForm(type)"
           style="border:none; padding:4px 10px; border-radius:4px; cursor:pointer; color:black;">

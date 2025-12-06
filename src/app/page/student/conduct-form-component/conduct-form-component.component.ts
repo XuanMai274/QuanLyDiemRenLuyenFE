@@ -625,12 +625,23 @@ export class ConductFormComponent implements OnInit {
       this.selectedFile
     ).subscribe({
       next: res => {
-        alert("Gửi phản hồi thành công!");
+        Swal.fire({
+          icon: 'success',
+          title: 'Đã gửi phản hồi!',
+          text: 'Phản hồi đã được gửi thành công.',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        this.showForm = false;
         this.resetForm();
       },
       error: err => {
         console.error(err);
-        alert("Lỗi gửi phản hồi!");
+        Swal.fire({
+          icon: 'error',
+          title: 'Lỗi',
+          text: 'Không thể gửi phản hồi. Vui lòng thử lại.'
+        });
       }
     });
   }

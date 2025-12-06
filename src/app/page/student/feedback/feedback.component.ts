@@ -3,7 +3,7 @@ import { FeedbackDTO } from '../../../models/feedback.model';
 import { FeedbackService } from '../../../service/feedbackService';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',

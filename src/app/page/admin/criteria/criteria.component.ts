@@ -159,10 +159,10 @@ export class CriteriaComponent implements OnInit {
         ...value,
         criteriaTypeEntity: selectedType
       };
-      console.log("id", this.editingCriteriaId, "và ", value.criteriaId);
-      console.log('Saving criteria', value);
+      console.log("id", this.editingCriteriaId, "và ", payload.criteriaId);
+      console.log('Saving criteria', payload);
       // UPDATE
-      this.criteriaService.updateCriteria(value)
+      this.criteriaService.updateCriteria(payload)
         .subscribe({
           next: () => this.loadCriteriaByType(this.selectedType!.criteriaTypeId!),
           error: err => console.error('Update failed', err)
